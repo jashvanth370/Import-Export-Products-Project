@@ -13,5 +13,5 @@ public class ProductResponse {
     private String originCountry;
     private Double weight;
     private Double value;
-    private String ownerName;
+    private String exporterName;
 }

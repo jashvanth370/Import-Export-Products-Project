@@ -20,14 +20,14 @@ public class ProductService {
     private final UserRepository userRepo;
 
     public ProductResponse createProduct(ProductRequest request) {
-        User user = userRepo.findById(request.getOwnerId()).orElseThrow(() -> new RuntimeException("User not found"));
+        User user = userRepo.findById(request.getExporterId()).orElseThrow(() -> new RuntimeException("User not found"));
         Product product = Product.builder()
                 .name(request.getName())
                 .hsCode(request.getHsCode())
                 .originCountry(request.getOriginCountry())
                 .weight(request.getWeight())
                 .value(request.getValue())
-                .owner(user)
+                .exporter(user)
                 .build();
         product = productRepo.save(product);
 
@@ -64,8 +64,14 @@ public class ProductService {
                 .originCountry(product.getOriginCountry())
                 .weight(product.getWeight())
                 .value(product.getValue())
-                .ownerName(product.getOwner().getName())
+                .exporterName(product.getExporter().getName())
                 .build();
     }
+
+//    public List<ProductResponse> getProductsByExporter(Long exporterId) {
+//        return productRepo.findByExporterId(exporterId)
+//                .stream().map(this::mapToResponse).toList();
+//    }
+
 }
 

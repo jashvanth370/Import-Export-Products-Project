@@ -25,8 +25,9 @@ public class Product {
 
     private Double value;
 
-    // Link product to user (exporter)
+
     @ManyToOne
-    @JoinColumn(name = "owner_user_id")
-    private User owner;
+    @JoinColumn(name = "exporter_id")
+    private User exporter;
+
 }
