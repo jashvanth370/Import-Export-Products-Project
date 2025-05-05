@@ -1,11 +1,14 @@
 package com.exportimport.backend.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 @Entity
-@Table(name = "users") // optional, but recommended
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Table(name = "users")
 public class User {
 
     @Id
@@ -14,7 +17,11 @@ public class User {
 
     private String name;
 
+    @Column(unique = true, nullable = false)
     private String email;
 
-    // any other fields
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
 }

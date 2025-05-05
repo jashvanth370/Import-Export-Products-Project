@@ -1,6 +1,6 @@
 package com.exportimport.backend.model;
 
-public enum Role {
+public enum UserRole {
     ADMIN,
     EXPORTER,
     IMPORTER,
