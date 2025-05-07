@@ -1,14 +1,22 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // <-- Import useNavigate
 import { createUser } from '../api/userApi';
 import '../styles/UserForm.css'; // Import the CSS file
 
 function UserForm() {
   const [form, setForm] = useState({ name: '', email: '', password: '', role: 'EXPORTER' });
+  const navigate = useNavigate(); // <-- Initialize navigate
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await createUser(form);
-    alert('User created!');
+    try {
+      await createUser(form);
+      alert('User created!');
+      navigate('/'); // <-- Redirect to home page
+    } catch (error) {
+      alert('Error creating user. Please try again.');
+      console.error(error);
+    }
   };
 
   return (
@@ -46,6 +54,7 @@ function UserForm() {
       >
         <option value="EXPORTER">Exporter</option>
         <option value="IMPORTER">Importer</option>
+        <option value="ADMIN">Officer</option>
       </select>
 
       <button type="submit" className="form-button">Create User</button>
