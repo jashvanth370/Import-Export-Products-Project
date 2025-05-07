@@ -27,6 +27,7 @@ public class ProductService {
                 .originCountry(request.getOriginCountry())
                 .weight(request.getWeight())
                 .value(request.getValue())
+                .quantity(request.getQuantity())
                 .exporter(user)
                 .build();
         product = productRepo.save(product);
@@ -48,7 +49,7 @@ public class ProductService {
         product.setOriginCountry(request.getOriginCountry());
         product.setWeight(request.getWeight());
         product.setValue(request.getValue());
-
+        product.setQuantity(request.getQuantity());
         return mapToResponse(productRepo.save(product));
     }
 
@@ -64,6 +65,7 @@ public class ProductService {
                 .originCountry(product.getOriginCountry())
                 .weight(product.getWeight())
                 .value(product.getValue())
+                .quantity(product.getQuantity())
                 .exporterName(product.getExporter().getName())
                 .build();
     }
