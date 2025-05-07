@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import './Navbar.css';
+import '../styles/Navbar.css'; // Adjust the path as necessary
 
 const Navbar = () => {
   return (
@@ -9,7 +9,7 @@ const Navbar = () => {
       <ul className="navbar-links">
         <li><NavLink to="/" exact="true">Home</NavLink></li>
         <li><NavLink to="/about">About</NavLink></li>
-        <li><NavLink to="/user">User</NavLink></li>
+        <li><NavLink to="/users">User</NavLink></li>
         <li><NavLink to="/contact">Contact</NavLink></li>
       </ul>
     </nav>

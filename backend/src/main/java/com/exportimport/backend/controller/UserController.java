@@ -1,9 +1,8 @@
-// com.exportimport.controller.UserController.java
 package com.exportimport.backend.controller;
 
 import com.exportimport.backend.dto.UserRequest;
 import com.exportimport.backend.dto.UserResponse;
-import com.exportimport.backend.service.UserService;
+import com.exportimport.backend.security.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,12 +16,12 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping
+    @PostMapping("/register")
     public UserResponse createUser(@RequestBody UserRequest request) {
         return userService.createUser(request);
     }
 
-    @GetMapping
+    @GetMapping("/get")
     public List<UserResponse> getAllUsers() {
         return userService.getAllUsers();
     }
