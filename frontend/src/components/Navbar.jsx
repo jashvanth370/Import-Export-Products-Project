@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import { FaBars, FaTimes, FaHome, FaInfoCircle, FaBoxOpen, FaEnvelope, FaFileAlt } from 'react-icons/fa';
-import '../styles/Navbar.css';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { FaBars, FaTimes, FaHome, FaInfoCircle, FaBoxOpen } from 'react-icons/fa';
 import { FaPerson, FaPersonBooth } from 'react-icons/fa6';
-
-const Navbar = () => {
+import '../styles/Navbar.css';
+import useAuthStore from '../store/AuthStore';
+// import { FaUserCircle } from 'react-icons';
+  
+  const Navbar = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { user, logout } = useAuthStore();
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setMobileMenuOpen(!isMobileMenuOpen);
@@ -13,6 +17,11 @@ const Navbar = () => {
 
   const closeMenu = () => {
     setMobileMenuOpen(false);
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
   };
 
   return (
@@ -23,13 +32,30 @@ const Navbar = () => {
       </div>
       <ul className={`navbar-links ${isMobileMenuOpen ? 'active' : ''}`}>
         <li><NavLink to="/" exact="true" onClick={closeMenu}><FaHome /> Home</NavLink></li>
-        <li><NavLink to="/users" onClick={closeMenu}><FaPersonBooth /> Register</NavLink></li>
-        <li><NavLink to="/products" onClick={closeMenu}><FaBoxOpen /> Products</NavLink></li>
-        <li><NavLink to="/about" onClick={closeMenu}><FaInfoCircle /> About</NavLink></li>
+        {!user && <li><NavLink to="/login" onClick={closeMenu}>Login</NavLink></li>}
+        <li><NavLink to="/about" onClick={closeMenu}>About</NavLink></li>
 
-        <li><NavLink to="/admin" onClick={closeMenu} 
-        className="text-blue-600 underline"> <FaPerson /> Admin Dashboard</NavLink> </li>
-        <li><NavLink to="/quote" onClick={closeMenu}><FaFileAlt /> Get a Quote</NavLink></li>
+        {user?.role === 'IMPORTER' && (
+          <>
+            <li><NavLink to="/products" onClick={closeMenu}><FaBoxOpen /> Products</NavLink></li>
+            <li><button onClick={() => { closeMenu(); handleLogout(); }} className="logout-button">
+              <FaPerson /> Logout
+            </button></li>
+          </>
+        )}
+
+        {!user && (
+          <>
+            <li><NavLink to="/users" onClick={closeMenu}><FaPersonBooth /> Register</NavLink></li>
+            <li><NavLink to="/quote" onClick={closeMenu}>Get a Quote</NavLink></li>
+          </>
+        )}
+
+        {user?.role === 'ADMIN' && (
+          <li><NavLink to="/admin" onClick={closeMenu} className="text-blue-600 underline">
+            <FaPerson /> Admin Dashboard
+          </NavLink></li>
+        )}
       </ul>
     </nav>
   );

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; // For redirecting
-import useAuthStore from '../store/authStore';
+import useAuthStore from '../store/AuthStore';
 import '../styles/ProductPage.css'; // Import your CSS file for styling
 
 const ProductsPage = () => {
@@ -50,13 +50,14 @@ const ProductsPage = () => {
       <div className="products-grid">
         {products.map((product) => (
           <div className="product-card" key={product.id}>
-            <h4>{product.name}</h4>
+            <h4>📦 {product.name}</h4>
             <p>{product.description}</p>
             <p><strong>Qty:</strong> {product.quantity}</p>
             <p><strong>Price:</strong> {product.value}</p>
-            <p><strong>Origin Country:</strong> {product.originCountry}</p>
+            <p><strong>Origin Country:</strong> <span className="tag">🌍 {product.originCountry}</span></p> 
             <p><strong>Weight:</strong> {product.weight} kg</p>
-            <p><em>Exporter: {product.exporter_id}</em></p>
+            
+            <p><span className="tag">👤 Exporter: {product.exporter}</span></p>
             <button onClick={() => handleRequest(product)}>Request Product</button>
           </div>
         ))}

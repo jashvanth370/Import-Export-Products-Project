@@ -11,7 +11,7 @@ const AdminDashboard: React.FC = () => {
   const getTransactions = async () => {
     const res = await fetchTransactions(statusFilter);
     setTransactions(res.data);
-  };
+  }
 
   useEffect(() => {
     getTransactions();

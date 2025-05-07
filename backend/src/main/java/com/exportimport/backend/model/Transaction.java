@@ -22,7 +22,7 @@ public class Transaction {
     private String productName;
     private Integer quantity;
     private Double totalAmount;
-    private ShipmentStatus status; // "PENDING", "COMPLETED", "REJECTED"
+    private ShipmentStatus  status; // "PENDING", "COMPLETED", "REJECTED"
 
     // Getters and setters
 }

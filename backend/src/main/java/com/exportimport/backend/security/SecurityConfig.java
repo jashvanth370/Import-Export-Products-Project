@@ -1,6 +1,7 @@
 package com.exportimport.backend.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,6 +28,9 @@ public class SecurityConfig {
     @Autowired
     private JwtFilter jwtFilter;
 
+    @Autowired
+    private BCryptPasswordEncoder encoder;
+
 
 //    @Bean
 //    public PasswordEncoder passwordEncoder() {
@@ -38,7 +42,7 @@ public class SecurityConfig {
         httpSecurity
                 .cors(Customizer.withDefaults()) // Enable CORS with default settings
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers( "/**").permitAll() // Allow specific endpoints
+                        .requestMatchers( "/**","/auth/admin").permitAll() // Allow specific endpoints
                         .anyRequest().authenticated()) // All other requests require authentication
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Use stateless sessions
 //                .authenticationProvider(authenticationProvider()) // Provide custom authentication provider
@@ -49,13 +53,13 @@ public class SecurityConfig {
     }
 
 
-    @Bean
-    public AuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(userDetailService);
-//        provider.setPasswordEncoder(passwordEncoder());
-        return provider;
-    }
+//    @Bean
+//    public AuthenticationProvider authenticationProvider() {
+//        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+//        provider.setUserDetailsService(userDetailService);
+//        provider.setPasswordEncoder(encoder.encoder());
+//        return provider;
+//    }
 
     @Bean
     public AuthenticationManager authManager(AuthenticationConfiguration config) throws Exception {

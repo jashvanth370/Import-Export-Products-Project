@@ -25,16 +25,15 @@ public class UserService implements UserDetailsService {
     @Autowired
     private  UserRepository userRepo;
     @Autowired
-    private  PasswordEncoder passwordEncoder;
+    private BCryptPasswordEncoder encoder;
 
     public UserResponse createUser(UserRequest request) {
         User user = User.builder()
                 .name(request.getName())
                 .email(request.getEmail())
-                .password(passwordEncoder.encode(request.getPassword()))
+                .password(encoder.encode(request.getPassword()))
                 .role(request.getRole())
                 .build();
-
         userRepo.save(user);
         return mapToResponse(user);
     }
