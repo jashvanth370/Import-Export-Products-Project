@@ -38,7 +38,7 @@ const LoginPage = () => {
           'Authorization': `Bearer ${token}`,
         },
       });
-      
+      console.log('Role Response:', roleResponse);
       if (!roleResponse.ok) {
         throw new Error('Failed to fetch user role');
       }
