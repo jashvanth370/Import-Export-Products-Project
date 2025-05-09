@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { FaBars, FaTimes, FaHome, FaInfoCircle, FaBoxOpen } from 'react-icons/fa';
-import { FaPerson, FaPersonBooth } from 'react-icons/fa6';
+import { FaPerson, FaPersonBooth, FaPersonHiking } from 'react-icons/fa6';
 import '../styles/Navbar.css';
 import useAuthStore from '../store/AuthStore';
 // import { FaUserCircle } from 'react-icons';
-  
-  const Navbar = () => {
+
+const Navbar = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { user, logout } = useAuthStore();
   const navigate = useNavigate();
@@ -32,8 +32,7 @@ import useAuthStore from '../store/AuthStore';
       </div>
       <ul className={`navbar-links ${isMobileMenuOpen ? 'active' : ''}`}>
         <li><NavLink to="/" exact="true" onClick={closeMenu}><FaHome /> Home</NavLink></li>
-        {!user && <li><NavLink to="/login" onClick={closeMenu}>Login</NavLink></li>}
-        
+        {!user && <li><NavLink to="/login" onClick={closeMenu}> <FaPersonHiking /> Login</NavLink></li>}
 
 
         {!user && (
@@ -52,13 +51,21 @@ import useAuthStore from '../store/AuthStore';
           </>
         )}
 
-        
+
 
         {user?.role === 'ADMIN' && (
-          <li><NavLink to="/admin" onClick={closeMenu} className="text-blue-600 underline">
-            <FaPerson /> Admin Dashboard
-          </NavLink></li>
-        )}
+          <>
+
+            <li><NavLink to="/admin" onClick={closeMenu} className="text-blue-600 underline">
+              <FaPerson /> Admin Dashboard
+            </NavLink></li>
+
+            <li><button onClick={() => { closeMenu(); handleLogout(); }} className="logout-button">
+              <FaPerson /> Logout
+            </button></li>
+            
+            </>
+          )}
         <li><NavLink to="/about" onClick={closeMenu}> <FaInfoCircle /> About</NavLink></li>
       </ul>
     </nav>

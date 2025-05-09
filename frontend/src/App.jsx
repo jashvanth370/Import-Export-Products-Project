@@ -9,6 +9,7 @@ import ProductsPage from './pages/ProductsPage';
 import LoginPage from './components/LoginPage';
 import AdminDashboard from './components/AdminDashboard';
 import Footer from './components/Footer';
+import TransactionPage from './pages/TransactionPage';
 
 function App() {
   return (
@@ -24,7 +25,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/admin" element={<AdminDashboard />} />
-          
+          <Route path="transaction" element={<TransactionPage />} />
 
           <Route path="/users" element={<UserForm />} />
           <Route path="/contact" element={<Contact />} />
