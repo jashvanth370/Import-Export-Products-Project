@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { FaBars, FaTimes, FaHome, FaInfoCircle, FaBoxOpen } from 'react-icons/fa';
+import { FaBars, FaTimes, FaHome, FaInfoCircle, FaBoxOpen, FaProductHunt, FaWeightHanging } from 'react-icons/fa';
 import { FaPerson, FaPersonBooth, FaPersonHiking } from 'react-icons/fa6';
 import '../styles/Navbar.css';
 import useAuthStore from '../store/AuthStore';
@@ -64,6 +64,18 @@ const Navbar = () => {
               <FaPerson /> Logout
             </button></li>
             
+            </>
+          )}
+
+          {user?.role === 'EXPORTER' && (
+            <>
+              <li><NavLink to="/product-exporter" onClick={closeMenu} className="text-blue-600 underline">
+                <FaWeightHanging /> Products
+              </NavLink></li>
+
+              <li><button onClick={() => { closeMenu(); handleLogout(); }} className="logout-button">
+                <FaPerson /> Logout
+              </button></li>
             </>
           )}
         <li><NavLink to="/about" onClick={closeMenu}> <FaInfoCircle /> About</NavLink></li>

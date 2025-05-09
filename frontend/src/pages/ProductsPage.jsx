@@ -52,7 +52,7 @@ const ProductsPage = () => {
 
   return (
     <div className="products-page">
-      <h2>Welcome, {user?.username || 'Guest'} (Importer)</h2>
+      <h2>Welcome, {user?.role === 'IMPORTER'}  IMPORTER</h2>
       <h3>Available Products:</h3>
 
       <div className="products-grid">

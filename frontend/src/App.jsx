@@ -10,6 +10,9 @@ import LoginPage from './components/LoginPage';
 import AdminDashboard from './components/AdminDashboard';
 import Footer from './components/Footer';
 import TransactionPage from './pages/TransactionPage';
+import Addproducts from './auth/AddProducts'
+import ProductForm from './auth/ProductExporter';
+import ProductsExporter from './auth/ProductExporter';
 
 function App() {
   return (
@@ -26,6 +29,8 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="transaction" element={<TransactionPage />} />
+          <Route path="/product-exporter" element={<ProductsExporter />} />
+          <Route path="product-form" element={<Addproducts />} />
 
           <Route path="/users" element={<UserForm />} />
           <Route path="/contact" element={<Contact />} />

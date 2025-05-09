@@ -1,0 +1,214 @@
+/* ProductForm.css */
+
+/* Container for the form */
+.product-form-container {
+  padding: 1.5rem;
+  max-width: 500px;
+  margin: 5rem auto;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  color: #333;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Form title */
+.product-form-container h2 {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #004d40;
+}
+
+/* Styling labels */
+.product-form label {
+  display: block;
+  margin: 0.6rem 0 0.3rem;
+  font-weight: 500;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+/* Styling input fields */
+.product-form input,
+.product-form select {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  border: 1px solid #00796b;
+  border-radius: 6px;
+  font-size: 1rem;
+  background-color: #f1f8e9; /* Light green background */
+  color: #00796b;
+  transition: all 0.3s ease;
+}
+
+/* Focus effect for inputs */
+.product-form input:focus,
+.product-form select:focus {
+  outline: none;
+  border-color: #004d40;
+  box-shadow: 0 0 8px rgba(0, 128, 128, 0.4);
+  background-color: #e0f7fa; /* Light blue background on focus */
+}
+
+/* Button styling */
+.product-form button {
+  width: 100%;
+  padding: 0.9rem;
+  background-color: #00796b;
+  color: white;
+  border: none;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  margin-top: 1rem;
+}
+
+/* Button hover effect */
+.product-form button:hover {
+  background-color: #004d40;
+  transform: translateY(-2px);
+}
+
+/* Error message styling */
+.error {
+  color: #d84315;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+  .product-form-container {
+    padding: 1.2rem;
+  }
+
+  .product-form-container h2 {
+    font-size: 1.7rem;
+  }
+
+  .product-form label {
+    font-size: 1rem;
+  }
+
+  .product-form input,
+  .product-form select {
+    font-size: 0.95rem;
+    padding: 0.7rem;
+  }
+
+  .product-form button {
+    font-size: 1rem;
+    padding: 0.8rem;
+  }
+}
+/* Add this at the very top or bottom of your existing ProductForm.css */
+
+/* ===== MODAL BACKDROP ===== */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 64, 64, 0.4);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* ===== MODAL CONTAINER ===== */
+.modal {
+  background: linear-gradient(to bottom right, #ffffff, #f1f8e9);
+  border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(0, 121, 107, 0.3);
+  padding: 2rem;
+  width: 90%;
+  max-width: 600px;
+  position: relative;
+  animation: slideIn 0.3s ease-out;
+  overflow-y: auto;
+  max-height: 90vh;
+}
+
+/* ===== ANIMATION ===== */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== CLOSE BUTTON ===== */
+.close-button {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.5rem;
+  font-size: 1.5rem;
+  background: transparent;
+  border: none;
+  color: #004d40;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.3s ease;
+}
+
+.close-button:hover {
+  transform: rotate(90deg);
+  color: #d84315;
+}
+
+/* ===== FORM STYLES INSIDE MODAL ===== */
+.modal .product-form-container {
+  padding: 0;
+  box-shadow: none;
+  background: transparent;
+}
+
+.modal .product-form h2 {
+  font-size: 1.8rem;
+  color: #004d40;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.modal .product-form label {
+  margin: 0.5rem 0 0.2rem;
+  font-size: 1rem;
+}
+
+.modal .product-form input {
+  border-radius: 8px;
+  border: 1px solid #b2dfdb;
+  background-color: #e0f2f1;
+  transition: border 0.3s ease;
+}
+
+.modal .product-form input:focus {
+  border: 1px solid #00796b;
+  background-color: #ffffff;
+}
+
+.modal .product-form button {
+  background-color: #00796b;
+  border-radius: 10px;
+  padding: 0.8rem;
+  margin-top: 1rem;
+  font-size: 1.05rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.modal .product-form button:hover {
+  background-color: #004d40;
+  transform: scale(1.02);
+}

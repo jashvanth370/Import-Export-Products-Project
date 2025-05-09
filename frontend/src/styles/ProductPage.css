@@ -241,3 +241,75 @@
 .modal-content .form-buttons button:hover {
   background: linear-gradient(to right, #004d40, #00796b);
 }
+/* Styles for the modal overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 500px;
+  transition: opacity 0.3s ease;
+}
+
+.modal-content h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #004d40;
+}
+
+.modal-content label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  color: #333;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.modal-content .form-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-content button {
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.modal-content button:hover {
+  background-color: #00796b;
+  color: white;
+}
+
+.modal-content button:first-of-type {
+  background-color: #f44336;
+  color: white;
+}
+
+.modal-content button:first-of-type:hover {
+  background-color: #d32f2f;
+}
