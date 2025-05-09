@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // For redirecting
+import { useNavigate } from 'react-router-dom';
 import useAuthStore from '../store/AuthStore';
-import '../styles/ProductPage.css'; // Import your CSS file for styling
+import '../styles/ProductPage.css';
 
 const ProductsPage = () => {
-  const { user } = useAuthStore();  // Get the current logged-in user
-  const navigate = useNavigate();   // React Router hook for navigation
+  const { user } = useAuthStore();
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
-  const [requested, setRequested] = useState([]);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [quantity, setQuantity] = useState(1);
+  const [days, setDays] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -15,9 +17,7 @@ const ProductsPage = () => {
     const fetchProducts = async () => {
       try {
         const response = await fetch('http://localhost:8080/api/products');
-        if (!response.ok) {
-          throw new Error('Failed to fetch products');
-        }
+        if (!response.ok) throw new Error('Failed to fetch products');
         const data = await response.json();
         setProducts(data);
       } catch (err) {
@@ -30,23 +30,31 @@ const ProductsPage = () => {
     fetchProducts();
   }, []);
 
-  const handleRequest = (product) => {
+  const handleRequestClick = (product) => {
     if (!user) {
       alert('Please log in to request a product.');
-      navigate('/login'); // Redirect to login page
+      navigate('/login');
       return;
     }
-
-    setRequested((prev) => [...prev, product]);
+    setSelectedProduct(product);
+    setQuantity(1);
+    setDays(1);
   };
 
-  if (loading) return <div className="loading">Loading products...</div>;
-  if (error) return <div className="error">Error: {error}</div>;
+  const handleProceedTransaction = () => {
+    const requestData = {
+      product: selectedProduct,
+      quantity,
+      days
+    };
+    navigate('/transaction', { state: requestData });
+  };
 
   return (
     <div className="products-page">
       <h2>Welcome, {user?.username || 'Guest'} (Importer)</h2>
       <h3>Available Products:</h3>
+
       <div className="products-grid">
         {products.map((product) => (
           <div className="product-card" key={product.id}>
@@ -54,24 +62,43 @@ const ProductsPage = () => {
             <p>{product.description}</p>
             <p><strong>Qty:</strong> {product.quantity}</p>
             <p><strong>Price:</strong> {product.value}</p>
-            <p><strong>Origin Country:</strong> <span className="tag">🌍 {product.originCountry}</span></p> 
+            <p><strong>Origin Country:</strong> 🌍 {product.originCountry}</p>
             <p><strong>Weight:</strong> {product.weight} kg</p>
-            
-            <p><span className="tag">👤 Exporter: {product.exporter}</span></p>
-            <button onClick={() => handleRequest(product)}>Request Product</button>
+            <p><strong>Exporter:</strong> 👤 {product.exporter}</p>
+            <button onClick={() => handleRequestClick(product)}>Request Product</button>
           </div>
         ))}
       </div>
 
-      {requested.length > 0 && (
-        <>
-          <h3>Requested Products:</h3>
-          <ul>
-            {requested.map((p) => (
-              <li key={p.id}>{p.name} from {p.exporter}</li>
-            ))}
-          </ul>
-        </>
+      {/* Modal Form */}
+      {selectedProduct && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h3>Request: {selectedProduct.name}</h3>
+            <label>
+              Quantity:
+              <input
+                type="number"
+                value={quantity}
+                onChange={(e) => setQuantity(Number(e.target.value))}
+                min={1}
+              />
+            </label>
+            <label>
+              Needed in (days):
+              <input
+                type="number"
+                value={days}
+                onChange={(e) => setDays(Number(e.target.value))}
+                min={1}
+              />
+            </label>
+            <div className="form-buttons">
+              <button onClick={() => setSelectedProduct(null)}>Cancel</button>
+              <button onClick={handleProceedTransaction}>Proceed to Transaction</button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
