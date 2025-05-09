@@ -1,6 +1,5 @@
-package com.exportimport.backend.dto;
+package com.exportimport.backend.dTo;
 
-import com.exportimport.backend.model.UserRole;
 import lombok.Data;
 
 @Data

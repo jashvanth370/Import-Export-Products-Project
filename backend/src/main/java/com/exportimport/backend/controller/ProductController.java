@@ -1,7 +1,7 @@
 package com.exportimport.backend.controller;
 
-import com.exportimport.backend.dto.ProductRequest;
-import com.exportimport.backend.dto.ProductResponse;
+import com.exportimport.backend.dTo.ProductRequest;
+import com.exportimport.backend.dTo.ProductResponse;
 import com.exportimport.backend.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

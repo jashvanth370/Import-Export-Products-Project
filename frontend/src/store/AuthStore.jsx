@@ -2,14 +2,13 @@
 import { create } from 'zustand';
 
 
+// AuthStore.js
 const useAuthStore = create((set) => ({
-  user: { role: localStorage.getItem('userRole') },
-  login: (userData) => set({ user: { ...userData, role: localStorage.getItem('userRole') } }),
-  logout: () => {
-    set({ user: null });
-    localStorage.removeItem('userRole');
-  },
+  user: null,
+  setUser: (user) => set({ user }),
+  logout: () => set({ user: null }),
 }));
+
 
 
 

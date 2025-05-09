@@ -33,7 +33,15 @@ import useAuthStore from '../store/AuthStore';
       <ul className={`navbar-links ${isMobileMenuOpen ? 'active' : ''}`}>
         <li><NavLink to="/" exact="true" onClick={closeMenu}><FaHome /> Home</NavLink></li>
         {!user && <li><NavLink to="/login" onClick={closeMenu}>Login</NavLink></li>}
-        <li><NavLink to="/about" onClick={closeMenu}>About</NavLink></li>
+        
+
+
+        {!user && (
+          <>
+            <li><NavLink to="/users" onClick={closeMenu}><FaPersonBooth /> Register</NavLink></li>
+            <li><NavLink to="/quote" onClick={closeMenu}>Get a Quote</NavLink></li>
+          </>
+        )}
 
         {user?.role === 'IMPORTER' && (
           <>
@@ -44,18 +52,14 @@ import useAuthStore from '../store/AuthStore';
           </>
         )}
 
-        {!user && (
-          <>
-            <li><NavLink to="/users" onClick={closeMenu}><FaPersonBooth /> Register</NavLink></li>
-            <li><NavLink to="/quote" onClick={closeMenu}>Get a Quote</NavLink></li>
-          </>
-        )}
+        
 
         {user?.role === 'ADMIN' && (
           <li><NavLink to="/admin" onClick={closeMenu} className="text-blue-600 underline">
             <FaPerson /> Admin Dashboard
           </NavLink></li>
         )}
+        <li><NavLink to="/about" onClick={closeMenu}> <FaInfoCircle /> About</NavLink></li>
       </ul>
     </nav>
   );

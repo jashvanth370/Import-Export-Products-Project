@@ -1,8 +1,8 @@
 package com.exportimport.backend.service;
 
-import com.exportimport.backend.dto.AuthRequest;
-import com.exportimport.backend.dto.AuthResponse;
-import com.exportimport.backend.security.JwtUtil;
+import com.exportimport.backend.dTo.AuthRequest;
+import com.exportimport.backend.dTo.AuthResponse;
+import com.exportimport.backend.security.JwtUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthService {
     private final AuthenticationManager authManager;
-    private final JwtUtil jwtUtil;
+    private final JwtUtils jwtUtil;
     private final UserDetailsService userDetailsService;
 
     public AuthResponse login(AuthRequest request) {

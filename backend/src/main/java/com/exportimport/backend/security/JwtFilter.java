@@ -1,5 +1,6 @@
 package com.exportimport.backend.security;
 
+//import jakarta.annotation.Resource;
 import jakarta.annotation.Resource;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -19,7 +20,7 @@ import java.io.IOException;
 public class JwtFilter extends OncePerRequestFilter {
 
     @Autowired
-    private  JwtUtil jwtUtil;
+    private JwtUtils jwtUtil;
     @Autowired
     @Resource(name = "userService")
     private  UserDetailsService userDetailsService;
@@ -44,11 +45,14 @@ public class JwtFilter extends OncePerRequestFilter {
                         userDetails, null, userDetails.getAuthorities()
                 );
                 SecurityContextHolder.getContext().setAuthentication(authToken);
+            } else {
+                System.out.println("Token validation failed.");
             }
         }
 
         chain.doFilter(request, response);
     }
+
 
 //    @Override
 //    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

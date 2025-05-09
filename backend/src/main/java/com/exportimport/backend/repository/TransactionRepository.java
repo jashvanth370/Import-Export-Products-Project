@@ -1,7 +1,7 @@
 package com.exportimport.backend.repository;
 
-import com.exportimport.backend.model.ShipmentStatus;
-import com.exportimport.backend.model.Transaction;
+import com.exportimport.backend.entity.ShipmentStatus;
+import com.exportimport.backend.entity.Transaction;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

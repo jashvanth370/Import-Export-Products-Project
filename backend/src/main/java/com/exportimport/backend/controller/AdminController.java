@@ -1,8 +1,8 @@
 package com.exportimport.backend.controller;
 
-import com.exportimport.backend.model.Product;
-import com.exportimport.backend.model.Transaction;
-import com.exportimport.backend.model.User;
+import com.exportimport.backend.entity.Product;
+import com.exportimport.backend.entity.Transaction;
+import com.exportimport.backend.entity.User;
 import com.exportimport.backend.repository.ProductRepository;
 import com.exportimport.backend.repository.TransactionRepository;
 import com.exportimport.backend.repository.UserRepository;

@@ -1,7 +1,7 @@
 // com.exportimport.dto.ShipmentResponse.java
-package com.exportimport.backend.dto;
+package com.exportimport.backend.dTo;
 
-import com.exportimport.backend.model.ShipmentStatus;
+import com.exportimport.backend.entity.ShipmentStatus;
 import lombok.*;
 
 import java.time.LocalDateTime;

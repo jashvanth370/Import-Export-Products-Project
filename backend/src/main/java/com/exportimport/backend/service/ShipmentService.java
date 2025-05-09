@@ -1,10 +1,10 @@
 // com.exportimport.service.ShipmentService.java
 package com.exportimport.backend.service;
 
-import com.exportimport.backend.dto.ShipmentItemRequest;
-import com.exportimport.backend.dto.ShipmentRequest;
-import com.exportimport.backend.dto.ShipmentResponse;
-import com.exportimport.backend.model.*;
+import com.exportimport.backend.dTo.ShipmentItemRequest;
+import com.exportimport.backend.dTo.ShipmentRequest;
+import com.exportimport.backend.dTo.ShipmentResponse;
+import com.exportimport.backend.entity.*;
 import com.exportimport.backend.repository.ProductRepository;
 import com.exportimport.backend.repository.ShipmentItemRepository;
 import com.exportimport.backend.repository.ShipmentRepository;

@@ -1,6 +1,6 @@
 package com.exportimport.backend.repository;
 
-import com.exportimport.backend.model.Product;
+import com.exportimport.backend.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

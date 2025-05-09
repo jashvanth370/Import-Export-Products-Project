@@ -1,17 +1,15 @@
 package com.exportimport.backend.security;
 
-import com.exportimport.backend.dto.UserRequest;
-import com.exportimport.backend.dto.UserResponse;
-import com.exportimport.backend.model.User;
+import com.exportimport.backend.dTo.UserRequest;
+import com.exportimport.backend.dTo.UserResponse;
+import com.exportimport.backend.entity.User;
+import com.exportimport.backend.entity.UserRole;
 import com.exportimport.backend.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -56,5 +54,11 @@ public class UserService implements UserDetailsService {
                 user.getPassword(),
                 List.of(new SimpleGrantedAuthority(user.getRole().name()))
         );
+    }
+
+
+    public UserRole getUserRole(){
+        User user = new User();
+        return user.getRole();
     }
 }

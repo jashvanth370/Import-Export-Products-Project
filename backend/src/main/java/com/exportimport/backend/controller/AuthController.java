@@ -1,7 +1,7 @@
 package com.exportimport.backend.controller;
 
-import com.exportimport.backend.dto.AuthRequest;
-import com.exportimport.backend.dto.AuthResponse;
+import com.exportimport.backend.dTo.AuthRequest;
+import com.exportimport.backend.dTo.AuthResponse;
 import com.exportimport.backend.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,4 +20,6 @@ public class AuthController {
     public AuthResponse login(@RequestBody AuthRequest request) {
         return authService.login(request);
     }
+
+
 }

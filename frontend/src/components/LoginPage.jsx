@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useAuthStore from '../store/AuthStore';
 import '../styles/LoginPage.css';
+import axios from 'axios';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -24,28 +25,30 @@ const LoginPage = () => {
       if (!response.ok) {
         throw new Error('Invalid credentials');
       }
+    
+      console.log('Response:', response);
   
       const { token } = await response.json();
+
+      console.log('Token:', token);
       
-      // Make an additional API call to get the user's role
-      const roleResponse = await fetch('http://localhost:8080/api/user/role', {
+      const roleResponse = await fetch('http://localhost:8080/api/users/role', {
         method: 'GET',
         headers: {
-          'Authorization': `Bearer ${token}`, // Pass the token in the Authorization header
+          'Authorization': `Bearer ${token}`,
         },
       });
-  
+      
       if (!roleResponse.ok) {
         throw new Error('Failed to fetch user role');
       }
-  
-      const roleData = await roleResponse.json(); // Assuming it returns a { role: 'IMPORTER' } structure
-      const role = roleData.role;  // Extract the role
-  
-      // Store the token and role in your global state (e.g., Zustand)
+      
+      const roleData = await roleResponse.json();
+      const role = roleData.role; // Example: "ROLE_IMPORTER"
+      
       login({ token, role });
-  
-      navigate('/'); // Redirect to home or products
+      navigate('/');
+      
     } catch (err) {
       setError(err.message);
     }

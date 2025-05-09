@@ -1,8 +1,8 @@
 package com.exportimport.backend.controller;
 
-import com.exportimport.backend.dto.ShipmentRequest;
-import com.exportimport.backend.dto.ShipmentResponse;
-import com.exportimport.backend.model.ShipmentStatus;
+import com.exportimport.backend.dTo.ShipmentRequest;
+import com.exportimport.backend.dTo.ShipmentResponse;
+import com.exportimport.backend.entity.ShipmentStatus;
 import com.exportimport.backend.service.ShipmentService;
 
 import lombok.RequiredArgsConstructor;

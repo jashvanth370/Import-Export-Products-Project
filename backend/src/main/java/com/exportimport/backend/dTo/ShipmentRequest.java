@@ -1,5 +1,5 @@
 
-package com.exportimport.backend.dto;
+package com.exportimport.backend.dTo;
 
 import lombok.*;
 

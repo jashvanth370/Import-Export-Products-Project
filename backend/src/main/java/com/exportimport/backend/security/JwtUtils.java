@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 
 @Component
-public class JwtUtil {
+public class JwtUtils {
 
     private final String SECRET_KEY = "hfaskfhaksfjaslkfjasaoeiuqwrhjwdasmfjashfjshaklj235hj45k25235v3253525kj23hk32jk42k";
 
@@ -22,6 +22,7 @@ public class JwtUtil {
                 .signWith(Keys.hmacShaKeyFor(SECRET_KEY.getBytes()), SignatureAlgorithm.HS256)
                 .compact();
     }
+
 
     public String extractUsername(String token) {
         return Jwts.parserBuilder().setSigningKey(SECRET_KEY.getBytes()).build()

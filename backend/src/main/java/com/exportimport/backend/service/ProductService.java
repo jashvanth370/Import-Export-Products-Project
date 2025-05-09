@@ -1,9 +1,9 @@
 package com.exportimport.backend.service;
 
-import com.exportimport.backend.dto.ProductRequest;
-import com.exportimport.backend.dto.ProductResponse;
-import com.exportimport.backend.model.Product;
-import com.exportimport.backend.model.User;
+import com.exportimport.backend.dTo.ProductRequest;
+import com.exportimport.backend.dTo.ProductResponse;
+import com.exportimport.backend.entity.Product;
+import com.exportimport.backend.entity.User;
 import com.exportimport.backend.repository.ProductRepository;
 import com.exportimport.backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
