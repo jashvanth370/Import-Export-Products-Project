@@ -1,0 +1,89 @@
+@media (max-width: 768px) {
+    .transaction-page {
+      padding: 1rem;
+    }
+  
+    .transaction-page h2 {
+      font-size: 1.8rem;
+    }
+  
+    .transaction-page p {
+      font-size: 1rem;
+    }
+  
+    .transaction-page .button-group {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .transaction-page button {
+      width: 100%;
+      padding: 1rem;
+      font-size: 1.2rem;
+    }
+  }
+
+  /* TransactionPage.css */
+
+.transaction-page {
+    padding: 2rem;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to right, #e0f7fa, #ffffff);
+    min-height: 100vh;
+  }
+  
+  .transaction-page h2 {
+    font-size: 2rem;
+    color: #00695c;
+    margin-bottom: 1.5rem;
+  }
+  
+  .transaction-page p {
+    font-size: 1.1rem;
+    color: #333;
+    margin: 0.5rem 0;
+  }
+  
+  .transaction-page strong {
+    color: #004d40;
+  }
+  
+  .transaction-page .details {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 121, 107, 0.1);
+    margin-bottom: 2rem;
+  }
+  
+  .transaction-page .details p {
+    margin-bottom: 1rem;
+  }
+  
+  .transaction-page .total-price {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #00796b;
+  }
+  
+  .transaction-page .button-group {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+  
+  .transaction-page button {
+    background-color: #00796b;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .transaction-page button:hover {
+    background-color: #004d40;
+  }
+  
