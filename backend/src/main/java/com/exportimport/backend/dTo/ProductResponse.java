@@ -1,5 +1,6 @@
 package com.exportimport.backend.dTo;
 
+import com.exportimport.backend.entity.Product;
 import lombok.*;
 
 @Data
@@ -15,4 +16,7 @@ public class ProductResponse {
     private Double value;
     private String quantity;
     private String exporterName;
+
+    public ProductResponse(Product product) {
+    }
 }

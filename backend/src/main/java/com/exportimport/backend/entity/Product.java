@@ -15,7 +15,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String hsCode; // Harmonized System Code for international trade
+    private String hsCode;
     private String originCountry;
     private Double weight;
     private Double value;

@@ -1,5 +1,6 @@
 package com.exportimport.backend.security;
 
+import com.exportimport.backend.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -8,6 +9,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -23,42 +25,46 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     @Autowired
-    private UserDetailsService userDetailService;
+    @Qualifier("customUserDetailsService")
+    private UserDetailsService userDetailService; // CustomUserDetailsService
 
     @Autowired
-    private JwtFilter jwtFilter;
+    private CustomUserDetailsService customUserDetailsService;
+
+    @Autowired
+    private JwtFilter jwtFilter; // Custom JWT filter
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder(); // Password encoding with BCrypt
     }
 
     @Bean
-    public AuthenticationProvider authenticationProvider() {
+    public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(userDetailService);
+        provider.setUserDetailsService(customUserDetailsService);  // Custom UserDetailsService
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }
 
     @Bean
-    public AuthenticationManager authManager(AuthenticationConfiguration config) throws Exception {
-        return config.getAuthenticationManager();
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();  // Use the provided AuthenticationManager bean
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                .cors(Customizer.withDefaults())
+                .cors(Customizer.withDefaults()) // Allow cross-origin requests
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/**", "/auth/admin","/api/users/role", "/auth/admin", "/login", "/register").permitAll()
-                        .anyRequest().authenticated())
-                .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authenticationProvider(authenticationProvider())
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
-                .csrf(csrf -> csrf.disable());
+                        .requestMatchers("/**", "/auth/admin", "/api/users/role", "/auth/admin", "/login", "/register") // Whitelist routes
+                        .permitAll()
+                        .anyRequest().authenticated()) // Require authentication for all other requests
+                .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Stateless authentication (JWT)
+                .authenticationProvider(authenticationProvider()) // Using the custom authentication provider
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class) // JWT filter before default auth filter
+                .csrf(csrf -> csrf.disable()); // Disabling CSRF for stateless auth
 
         return httpSecurity.build();
     }
 }
-

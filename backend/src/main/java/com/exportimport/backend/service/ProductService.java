@@ -70,10 +70,10 @@ public class ProductService {
                 .build();
     }
 
-//    public List<ProductResponse> getProductsByExporter(Long exporterId) {
-//        return productRepo.findByExporterId(exporterId)
-//                .stream().map(this::mapToResponse).toList();
-//    }
+    public List<ProductResponse> getProductsByExporter(Long exporterId) {
+        return productRepo.findByExporterId(exporterId)
+                .stream().map(this::mapToResponse).toList();
+    }
 
 }
 

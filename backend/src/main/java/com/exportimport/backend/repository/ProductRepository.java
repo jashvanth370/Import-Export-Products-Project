@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends JpaRepository<Product,Long> {
 
-    Arrays findByExporterId(Long exporterId);
+    List<Product> findByExporterId(Long exporterId);
 
     List<Product> findByStatus(String status);
 
