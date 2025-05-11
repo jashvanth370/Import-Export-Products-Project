@@ -1,71 +1,121 @@
-.user-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background-color: #e0f2f1;
-  padding: 2rem;
-  /* background: url('/images/login2.avif') no-repeat center center/cover; */
+/* ===== BACKDROP ===== */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 64, 64, 0.4);
   backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
 }
 
-.user-form form {
-  background: white;
-  padding: 2rem 2rem;
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+/* ===== MODAL CONTAINER ===== */
+.modal {
+  background: linear-gradient(to bottom right, #ffffff, #f1f8e9);
+  border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(0, 121, 107, 0.3);
+  padding: 2rem;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+  animation: slideIn 0.3s ease-out;
+  overflow-y: auto;
+  max-height: 90vh;
+}
+
+/* ===== MODAL ANIMATION ===== */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== CLOSE BUTTON ===== */
+.close-button {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.5rem;
+  font-size: 1.5rem;
+  background: transparent;
+  border: none;
+  color: #004d40;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.3s ease;
+}
+
+.close-button:hover {
+  transform: rotate(90deg);
+  color: #d84315;
+}
+
+/* ===== USER FORM ===== */
+.user-form {
   width: 100%;
-  max-width: 400px;
+  font-family: 'Arial', sans-serif;
 }
 
 .user-form h2 {
   text-align: center;
+  font-size: 1.8rem;
+  color: #004d40;
   margin-bottom: 1.5rem;
-  color: #333;
 }
 
 .form-label {
   display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 600;
+  margin: 0.6rem 0 0.3rem;
+  font-weight: 500;
+  font-size: 1.05rem;
   color: #333;
 }
 
 .form-input {
   width: 100%;
-  max-width: 400px;
   padding: 0.75rem;
-  margin-bottom: 1rem;
-  border: 1px solid #ccc;
+  border: 1px solid #b2dfdb;
   border-radius: 8px;
   font-size: 1rem;
-  transition: border-color 0.3s ease;
+  background-color: #e0f2f1;
+  color: #004d40;
+  margin-bottom: 1rem;
+  transition: border 0.3s ease, background-color 0.3s ease;
 }
 
-
 .form-input:focus {
-  outline: none;
   border-color: #00796b;
+  background-color: #ffffff;
+  outline: none;
 }
 
 .form-button {
-  width: 40%;
-  padding: 0.75rem;
+  width: 100%;
+  padding: 0.9rem;
   background-color: #00796b;
   color: white;
-  font-size: 1rem;
-  font-weight: bold;
+  font-size: 1.05rem;
+  font-weight: 600;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 0.5rem;
 }
 
 .form-button:hover {
   background-color: #004d40;
+  transform: scale(1.02);
 }
 
+/* ===== ERROR MESSAGE ===== */
 .error {
   color: red;
   text-align: center;

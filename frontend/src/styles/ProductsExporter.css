@@ -1,0 +1,133 @@
+.products-exporter-page {
+  padding: 2rem;
+  background: linear-gradient(to right, #e0f7fa, #b2dfdb);
+  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  animation: fadeIn 0.8s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  } 
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.products-exporter-page h2 {
+  color: #004d40;
+  margin-bottom: 1rem;
+}
+
+.products-exporter-page button {
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  background: linear-gradient(to right, #00796b, #004d40);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+.products-exporter-page button:hover {
+  background: linear-gradient(to right, #004d40, #00796b);
+}
+
+.products-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  margin-top: 1.5rem;
+}
+
+.product-card {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 121, 107, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(0, 121, 107, 0.3);
+}
+
+.product-card h4 {
+  margin-bottom: 0.5rem;
+  color: #00796b;
+}
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.4s ease-in-out;
+  z-index: 1000;
+}
+
+.modal {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 10px 25px rgba(0, 121, 107, 0.3);
+  animation: fadeIn 0.4s ease;
+}
+
+.modal h3 {
+  margin-bottom: 1rem;
+  color: #004d40;
+  text-align: center;
+}
+
+.modal form input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.modal-buttons button {
+  flex: 1;
+  padding: 0.7rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1rem;
+  background: linear-gradient(to right, #00796b, #004d40);
+  color: white;
+}
+
+.modal-buttons .cancel-btn {
+  background: #ccc;
+  color: #333;
+}
+
+.modal-buttons .cancel-btn:hover {
+  background: #bbb;
+}
+
+.modal-buttons button:hover {
+  opacity: 0.9;
+}

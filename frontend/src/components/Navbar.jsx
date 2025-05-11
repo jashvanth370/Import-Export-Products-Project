@@ -4,12 +4,14 @@ import { FaBars, FaTimes, FaHome, FaInfoCircle, FaBoxOpen, FaProductHunt, FaWeig
 import { FaPerson, FaPersonBooth, FaPersonHiking } from 'react-icons/fa6';
 import '../styles/Navbar.css';
 import useAuthStore from '../store/AuthStore';
+import LoginPage from './LoginPage';
 // import { FaUserCircle } from 'react-icons';
 
 const Navbar = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { user, logout } = useAuthStore();
+  const { user, login, logout } = useAuthStore();
   const navigate = useNavigate();
+  const { role }=LoginPage();
 
   const toggleMenu = () => {
     setMobileMenuOpen(!isMobileMenuOpen);

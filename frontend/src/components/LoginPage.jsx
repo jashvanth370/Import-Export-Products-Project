@@ -7,53 +7,54 @@ import axios from 'axios';
 const LoginPage = () => {
   const navigate = useNavigate();
   const { login } = useAuthStore();
-
+  
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
   const handleLogin = async (e) => {
-    e.preventDefault();
-  
-    try {
-      const response = await fetch('http://localhost:8080/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
-  
-      if (!response.ok) {
-        throw new Error('Invalid credentials');
-      }
-    
-      console.log('Response:', response);
-  
-      const { token } = await response.json();
+     e.preventDefault();
 
-      console.log('Token:', token);
-      
-      const roleResponse = await fetch('http://localhost:8080/api/users/role', {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-      });
-      console.log('Role Response:', roleResponse);
-      if (!roleResponse.ok) {
-        throw new Error('Failed to fetch user role');
-      }
-      
-      const roleData = await roleResponse.json();
-      const role = roleData.role; // Example: "ROLE_IMPORTER"
-      
-      login({ token, role });
-      navigate('/');
-      
-    } catch (err) {
-      setError(err.message);
+  try {
+    const response = await fetch('http://localhost:8080/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Invalid credentials');
     }
-  };
-  
+
+    const { token, userId: id, userName: name, role1} = await response.json(); // extract id, name, and token
+    console.log('Login response:', { id, name, token }); 
+
+    // Fetch the role using the token
+    const roleResponse = await fetch('http://localhost:8080/api/users/role', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+
+    if (!roleResponse.ok) {
+      throw new Error('Failed to fetch user role');
+    }
+
+    const roleData = await roleResponse.json();
+    const role = roleData.role;
+
+    // Store the token and user details (id, name, role) in localStorage and the store
+    login({ id, name, role, token }); // save id, name, role, and token
+    console.log('User logged in:', { id, name, role, token });
+
+
+    navigate('/'); // Navigate to the home page after successful login
+  } catch (err) {
+    setError(err.message);
+  }
+};
+
 
   return (
     <div className="login-page">
