@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { FaBars, FaTimes, FaHome, FaInfoCircle, FaBoxOpen, FaProductHunt, FaWeightHanging } from 'react-icons/fa';
-import { FaPerson, FaPersonBooth, FaPersonHiking } from 'react-icons/fa6';
+import { FaBars, FaTimes, FaHome, FaInfoCircle, FaBoxOpen, FaProductHunt, FaWeightHanging, FaThinkPeaks } from 'react-icons/fa';
+import { FaBoltLightning, FaPerson, FaPersonBooth, FaPersonHiking } from 'react-icons/fa6';
 import '../styles/Navbar.css';
 import useAuthStore from '../store/AuthStore';
 import LoginPage from './LoginPage';
@@ -72,7 +72,7 @@ const Navbar = () => {
           {user?.role === 'EXPORTER' && (
             <>
               <li><NavLink to="/product-exporter" onClick={closeMenu} className="text-blue-600 underline">
-                <FaWeightHanging /> Products
+                <FaWeightHanging /> My Products
               </NavLink></li>
 
               <li><button onClick={() => { closeMenu(); handleLogout(); }} className="logout-button">
@@ -80,6 +80,7 @@ const Navbar = () => {
               </button></li>
             </>
           )}
+          <li><NavLink to="/quote" onClick={closeMenu}>Get a Quote</NavLink></li>
         <li><NavLink to="/about" onClick={closeMenu}> <FaInfoCircle /> About</NavLink></li>
       </ul>
     </nav>

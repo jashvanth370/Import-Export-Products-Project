@@ -11,6 +11,7 @@ import lombok.*;
 @Setter
 public class Product {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,4 +29,7 @@ public class Product {
     private User exporter;
 
 
+    public String getName() {
+        return name;
+    }
 }
