@@ -5,6 +5,9 @@ import com.exportimport.backend.entity.ShipmentStatus;
 import com.exportimport.backend.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -64,24 +67,29 @@ public class OrderService {
         }
     }
 
-    public Response<?> createShipment(ShipmentRequest request , Long orderId) {
-        try{
+    public Response<?> createShipment(ShipmentRequest request ,Long orderId) {
+        try {
             Optional<Order> orderExisting = orderRepo.findById(orderId);
-            if(orderExisting.isEmpty()){
-                return new Response<>(400,"Order not found",null);
+            if (orderExisting.isEmpty()) {
+                return new Response<>(400, "Order not found", null);
             }
+
+            if (request.getShipmentDate() == null || request.getTrackingNumber() == null) {
+                return new Response<>(400, "Missing shipment date or tracking number", null);
+            }
+
             Order order = orderExisting.get();
             order.setShipmentDate(request.getShipmentDate());
             order.setTrackingNumber(request.getTrackingNumber());
             order.setStatus(ShipmentStatus.CONFIRMED);
-            return new Response<>(200,"Shipment Create successfully",null);
-        }
-        catch(Exception e){
-            return new Response<>(500,"Internal error",null);
+
+            orderRepo.save(order);
+            return new Response<>(200, "Shipment created successfully", null);
+
+        } catch (Exception e) {
+            e.printStackTrace(); // log this for debugging
+            return new Response<>(500, "Internal error", null);
         }
     }
-
-
-
 
 }

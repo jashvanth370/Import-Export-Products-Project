@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ShipmentRequest {
-    private Long OrderId;
     private String trackingNumber;
     private LocalDateTime shipmentDate;
 

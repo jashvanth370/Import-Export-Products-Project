@@ -32,8 +32,9 @@ public class OrderController {
         return orderService.getOrderById(orderId);
     }
 
-    @PostMapping("/createShipment")
-    public Response<?> createShipment(@RequestBody ShipmentRequest request , Long orderId) {
+    @PostMapping("/createShipment/{orderId}")
+    public Response<?> createShipment(@RequestBody ShipmentRequest request ,
+                                      @PathVariable Long orderId) {
         return orderService.createShipment(request,orderId);
     }
 
