@@ -1,26 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { fetchTransactions, updateTransactionStatus } from "../api/api";
 import { ShipmentStatus, Transaction } from "../Types";
-import TransactionTable from "./TransactionTable";
 import "../styles/AdminDashboard.css";
 
 const AdminDashboard: React.FC = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [statusFilter, setStatusFilter] = useState<string>("");
 
-  const getTransactions = async () => {
-    const res = await fetchTransactions(statusFilter);
-    setTransactions(res.data);
-  }
+  // const getTransactions = async () => {
+  //   const res = await fetchTransactions(statusFilter);
+  //   setTransactions(res.data);
+  // }
 
-  useEffect(() => {
-    getTransactions();
-  }, [statusFilter]);
+  // useEffect(() => {
+  //   getTransactions();
+  // }, [statusFilter]);
 
-  const handleStatusChange = async (id: number, newStatus: ShipmentStatus) => {
-    await updateTransactionStatus(id, newStatus);
-    getTransactions();
-  };
+  // const handleStatusChange = async (id: number, newStatus: ShipmentStatus) => {
+  //   await updateTransactionStatus(id, newStatus);
+  //   getTransactions();
+  // };
 
   return (
     <div className="admin-dashboard">
@@ -38,10 +36,7 @@ const AdminDashboard: React.FC = () => {
         </select>
       </div>
 
-      <TransactionTable
-        transactions={transactions}
-        onStatusChange={handleStatusChange}
-      />
+  
     </div>
   );
 };

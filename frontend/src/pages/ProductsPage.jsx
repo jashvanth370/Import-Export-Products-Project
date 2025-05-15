@@ -12,6 +12,7 @@ const ProductsPage = () => {
   const [days, setDays] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [shippingAddress, setShippingAddress] = useState('');
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -19,6 +20,7 @@ const ProductsPage = () => {
         const response = await fetch('http://localhost:8080/api/products');
         if (!response.ok) throw new Error('Failed to fetch products');
         const data = await response.json();
+        console.log(data)
         setProducts(data);
       } catch (err) {
         setError(err.message);
@@ -41,14 +43,36 @@ const ProductsPage = () => {
     setDays(1);
   };
 
-  const handleProceedTransaction = () => {
-    const requestData = {
-      product: selectedProduct,
-      quantity,
-      days
+  const handleProceedTransaction = async () => {
+    if (!selectedProduct || !user) return;
+
+    const orderData = {
+      importerId: user.id, // assumes your user object contains the ID
+      productId: selectedProduct.id,
+      quantity: quantity,
+      shippingAddress: shippingAddress, // you can make this a field if needed
     };
-    navigate('/transaction', { state: requestData });
+
+    try {
+      const response = await fetch('http://localhost:8080/api/orders', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(orderData),
+      });
+
+      if (!response.ok) throw new Error('Failed to place order');
+
+      const result = await response.json();
+      alert(`✅ Order placed successfully! Order ID: ${result.id}`);
+      setSelectedProduct(null); // close modal
+    } catch (error) {
+      console.error('Error placing order:', error);
+      alert('❌ Failed to place order. Please try again.');
+    }
   };
+
 
   return (
     <div className="products-page">
@@ -74,7 +98,7 @@ const ProductsPage = () => {
       {selectedProduct && (
         <div className="modal-overlay">
           <div className="modal-content">
-            <h3>Request: {selectedProduct.name}</h3>
+            <h3>Order: {selectedProduct.name}</h3>
             <label>
               Quantity:
               <input
@@ -91,6 +115,15 @@ const ProductsPage = () => {
                 value={days}
                 onChange={(e) => setDays(Number(e.target.value))}
                 min={1}
+              />
+            </label>
+            <label>
+              Shipping Address:
+              <input
+                type="text"
+                value={shippingAddress}
+                onChange={(e) => setShippingAddress(e.target.value)}
+                required
               />
             </label>
             <div className="form-buttons">

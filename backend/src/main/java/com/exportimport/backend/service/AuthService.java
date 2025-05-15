@@ -1,11 +1,10 @@
 package com.exportimport.backend.service;
 
-import com.exportimport.backend.dTo.AuthRequest;
-import com.exportimport.backend.dTo.AuthResponse;
+import com.exportimport.backend.DTO.AuthRequest;
+import com.exportimport.backend.DTO.AuthResponse;
 import com.exportimport.backend.entity.User;
 import com.exportimport.backend.repository.UserRepository;
-import com.exportimport.backend.security.JwtUtils;
-import lombok.RequiredArgsConstructor;
+import com.exportimport.backend.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

@@ -26,30 +26,30 @@ public class SecurityConfig {
 
     @Autowired
     @Qualifier("customUserDetailsService")
-    private UserDetailsService userDetailService; // CustomUserDetailsService
+    private UserDetailsService userDetailService;
 
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
 
     @Autowired
-    private JwtFilter jwtFilter; // Custom JWT filter
+    private JwtFilter jwtFilter;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(); // Password encoding with BCrypt
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(customUserDetailsService);  // Custom UserDetailsService
+        provider.setUserDetailsService(customUserDetailsService);
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();  // Use the provided AuthenticationManager bean
+        return authenticationConfiguration.getAuthenticationManager();
     }
 
     @Bean

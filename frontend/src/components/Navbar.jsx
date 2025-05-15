@@ -50,6 +50,7 @@ const Navbar = () => {
             <li><button onClick={() => { closeMenu(); handleLogout(); }} className="logout-button">
               <FaPerson /> Logout
             </button></li>
+            <li><NavLink to="/my-orders" onClick={closeMenu}><FaProductHunt /> My Orders</NavLink></li>
           </>
         )}
 

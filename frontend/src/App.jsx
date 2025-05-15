@@ -11,8 +11,9 @@ import AdminDashboard from './components/AdminDashboard';
 import Footer from './components/Footer';
 import TransactionPage from './pages/TransactionPage';
 import Addproducts from './auth/AddProducts'
-import ProductForm from './auth/ProductExporter';
 import ProductsExporter from './auth/ProductExporter';
+import MyOrdersPage from './pages/MyOrderPage';
+import ShipmentTrackingPage from './pages/ShipmentTrackingPage';
 
 function App() {
   return (
@@ -31,6 +32,9 @@ function App() {
           <Route path="transaction" element={<TransactionPage />} />
           <Route path="/product-exporter" element={<ProductsExporter />} />
           <Route path="product-form" element={<Addproducts />} />
+          <Route path="/my-orders" element={<MyOrdersPage />} />
+          <Route path="/track-shipment/:orderId" element={<ShipmentTrackingPage />} />
+
 
           <Route path="/users" element={<UserForm />} />
           <Route path="/contact" element={<Contact />} />

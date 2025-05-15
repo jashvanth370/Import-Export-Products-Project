@@ -1,7 +1,10 @@
 package com.exportimport.backend.controller;
-import com.exportimport.backend.entity.Order;
+import com.exportimport.backend.DTO.OrderRequest;
+import com.exportimport.backend.DTO.Response;
+import com.exportimport.backend.DTO.ShipmentRequest;
 import com.exportimport.backend.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -10,19 +13,29 @@ import java.util.List;
 @CrossOrigin
 public class OrderController {
     @Autowired
-    private final OrderService orderService;
+    private  OrderService orderService;
 
-    public OrderController(OrderService orderService) {
-        this.orderService = orderService;
+
+    @PostMapping("/createOrder")
+    public Response<?> createOrder(@RequestBody OrderRequest request) {
+        return orderService.createOrder(request);
     }
 
-    @PostMapping
-    public Order placeOrder(@RequestBody Order order) {
-        return orderService.placeOrder(order);
-    }
 
     @GetMapping("/user/{importerId}")
-    public List<Order> getOrdersByUser(@PathVariable Long importerId) {
+    public Response<?> getOrdersByUser(@PathVariable Long importerId) {
         return orderService.getOrdersByUser(importerId);
     }
+
+    @GetMapping("/order/{orderId}")
+    public Response<?> getOrderById(@PathVariable  Long orderId){
+        return orderService.getOrderById(orderId);
+    }
+
+    @PostMapping("/createShipment")
+    public Response<?> createShipment(@RequestBody ShipmentRequest request , Long orderId) {
+        return orderService.createShipment(request,orderId);
+    }
+
+
 }

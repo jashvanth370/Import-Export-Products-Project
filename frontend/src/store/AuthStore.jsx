@@ -13,8 +13,8 @@ const useAuthStore = create((set) => {
     token: storedToken,
 
     login: ({ id, name, role, token }) => {
-      const user = { id, name, role ,token };
-        // Store id, name, and role in a user object
+      const user = { id, name, role, token };
+      // Store id, name, and role in a user object
 
       // // Store user and token in localStorage
       localStorage.setItem('user', JSON.stringify(user)); // save user details
@@ -34,6 +34,16 @@ const useAuthStore = create((set) => {
       localStorage.removeItem('token');
       set({ user: null, token: null });
     },
+
+    // orderId: localStorage.getItem('orderId') || null,
+    // setOrderId: (id) => {
+    //   localStorage.setItem('orderId', id);
+    //   set({ orderId: id });
+    // },
+    // clearOrderId: () => {
+    //   localStorage.removeItem('orderId');
+    //   set({ orderId: null });
+    // },
   };
 });
 

@@ -1,4 +1,4 @@
-package com.exportimport.backend.dTo;
+package com.exportimport.backend.DTO;
 
 import lombok.Data;
 

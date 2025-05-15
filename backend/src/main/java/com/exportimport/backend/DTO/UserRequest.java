@@ -1,4 +1,4 @@
-package com.exportimport.backend.dTo;
+package com.exportimport.backend.DTO;
 
 import com.exportimport.backend.entity.UserRole;
 import lombok.*;
@@ -6,9 +6,10 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserResponse {
-    private Long id;
+public class UserRequest {
     private String name;
     private String email;
+    private String password;
     private UserRole role;
 }
+

@@ -1,4 +1,4 @@
-package com.exportimport.backend.security;
+package com.exportimport.backend.utils;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

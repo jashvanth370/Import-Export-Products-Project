@@ -1,12 +1,14 @@
-package com.exportimport.backend.dTo;
+package com.exportimport.backend.DTO;
 
 import com.exportimport.backend.entity.Product;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProductResponse {
     private Long id;
     private String name;
@@ -16,6 +18,8 @@ public class ProductResponse {
     private Double value;
     private String quantity;
     private String exporterName;
+    private int statusCode;
+    private String message;
 
     public ProductResponse(Product product) {
     }

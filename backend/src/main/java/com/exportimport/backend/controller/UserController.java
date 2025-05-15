@@ -3,9 +3,9 @@ package com.exportimport.backend.controller;
 //import com.exportimport.backend.dto.UserRequest;
 //import com.exportimport.backend.dto.UserResponse;
 
-import com.exportimport.backend.dTo.UserRequest;
-import com.exportimport.backend.dTo.UserResponse;
-import com.exportimport.backend.security.UserService;
+import com.exportimport.backend.DTO.Response;
+import com.exportimport.backend.DTO.UserRequest;
+import com.exportimport.backend.service.UserService;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpStatus;
@@ -21,7 +21,6 @@ import org.springframework.security.core.GrantedAuthority;
 
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -33,12 +32,12 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/register")
-    public UserResponse createUser(@RequestBody UserRequest request) {
+    public Response<?> createUser(@RequestBody UserRequest request) {
         return userService.createUser(request);
     }
 
     @GetMapping("/get")
-    public List<UserResponse> getAllUsers() {
+    public Response<?> getAllUsers() {
         return userService.getAllUsers();
     }
 
@@ -57,7 +56,7 @@ public class UserController {
                         .orElse("UNKNOWN");
             }
         } catch (Exception e) {
-            e.printStackTrace(); // Check your logs for details
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
 
