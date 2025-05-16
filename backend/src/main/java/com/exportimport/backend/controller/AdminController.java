@@ -1,10 +1,8 @@
 package com.exportimport.backend.controller;
 
 import com.exportimport.backend.entity.Product;
-import com.exportimport.backend.entity.Transaction;
 import com.exportimport.backend.entity.User;
 import com.exportimport.backend.repository.ProductRepository;
-import com.exportimport.backend.repository.TransactionRepository;
 import com.exportimport.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,8 +25,6 @@ public class AdminController {
     @Autowired
     private ProductRepository productRepository;
 
-    @Autowired
-    private TransactionRepository transactionRepository;
 
 
     @GetMapping("/users")
@@ -71,25 +67,6 @@ public class AdminController {
             return ResponseEntity.ok("Product rejected");
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found");
-    }
-
-
-    @GetMapping("/transactions")
-    public List<Transaction> getTransactions() {
-        return transactionRepository.findAll();
-    }
-
-
-    @PutMapping("/transactions/{id}/approve")
-    public ResponseEntity<String> approveTransaction(@PathVariable Long id) {
-        Optional<Transaction> transaction = transactionRepository.findById(id);
-        if (transaction.isPresent()) {
-            Transaction t = transaction.get();
-//            t.setStatus("COMPLETED");
-            transactionRepository.save(t);
-            return ResponseEntity.ok("Transaction approved");
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Transaction not found");
     }
 
 

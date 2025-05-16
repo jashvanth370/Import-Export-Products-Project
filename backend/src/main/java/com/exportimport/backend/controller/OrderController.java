@@ -1,10 +1,9 @@
 package com.exportimport.backend.controller;
-import com.exportimport.backend.DTO.OrderRequest;
-import com.exportimport.backend.DTO.Response;
-import com.exportimport.backend.DTO.ShipmentRequest;
+import com.exportimport.backend.DTO.*;
 import com.exportimport.backend.entity.ShipmentStatus;
 import com.exportimport.backend.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -64,6 +63,14 @@ public class OrderController {
     }
 
 
+    @GetMapping("/{id}/shipment")
+    public ResponseEntity<ApiResponse<ShipmentResponse>> getShipment(
+            @PathVariable("id") Long orderId,
+            @RequestParam("userId") Long userId // passed from frontend
+    ) {
+        ShipmentResponse shipment = orderService.getShipmentDetails(orderId, userId);
+        return ResponseEntity.ok(ApiResponse.success(shipment));
+    }
 
 
 }

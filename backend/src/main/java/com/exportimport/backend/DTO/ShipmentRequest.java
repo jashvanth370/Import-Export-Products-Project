@@ -17,4 +17,5 @@ public class ShipmentRequest {
 
     @Enumerated
     private ShipmentStatus status;
+
 }

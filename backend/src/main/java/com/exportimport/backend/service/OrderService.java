@@ -142,4 +142,28 @@ public class OrderService {
             return new Response<>(500, "Failed to fetch confirm orders", null);
         }
     }
+
+    public ShipmentResponse getShipmentDetails(Long orderId, Long userId) {
+        Order order = orderRepo.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Order not found"));
+
+        // Check if current user is involved in this order
+        if (!order.getExporterId().equals(userId) && !order.getImporterId().equals(userId)) {
+            throw new RuntimeException("You are not authorized to access this shipment");
+        }
+
+        // Estimate delivery if not set (e.g., 7 days after shipmentDate)
+        LocalDateTime estimatedDelivery = null;
+        if (order.getShipmentDate() != null) {
+            estimatedDelivery = order.getShipmentDate().plusDays(7); // simple logic
+        }
+
+        return ShipmentResponse.builder()
+                .orderId(order.getId())
+                .trackingNumber(order.getTrackingNumber())
+                .status(order.getStatus())
+                .shippedDate(order.getShipmentDate())
+                .estimatedDelivery(estimatedDelivery)
+                .build();
+    }
 }

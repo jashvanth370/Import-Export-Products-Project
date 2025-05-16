@@ -8,6 +8,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
+
 @Repository
 public interface OrderRepository extends JpaRepository<Order,Long> {
     List<Order> findByImporterId(Long importerId);
@@ -15,6 +17,8 @@ public interface OrderRepository extends JpaRepository<Order,Long> {
     List<Order> findByStatus(ShipmentStatus status);
 
     List<Order> findByExporterId(Long exporterId);
+
+    Optional<Order> findById(Long id);
 
 
 }
