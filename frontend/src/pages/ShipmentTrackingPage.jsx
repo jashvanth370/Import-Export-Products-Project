@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import '../styles/ShipmentTrackingPage.css';
-import useAuthStore from '../store/AuthStore';
 
 const ShipmentTrackingPage = () => {
-  const { orderId } = useAuthStore();
+  const { orderId } = useParams(); // Get orderId from URL parameters
   const [shipment, setShipment] = useState(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
@@ -12,10 +11,11 @@ const ShipmentTrackingPage = () => {
   useEffect(() => {
     const fetchShipment = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/api/shipment/order/${orderId}`);
+        const response = await fetch(`http://localhost:8080/api/orders/${orderId}/shipment`);
         if (!response.ok) throw new Error('Shipment not found');
         const data = await response.json();
-        setShipment(data);
+        setShipment(data.data); // access the `data` field from your backend response wrapper
+        console.log('Fetched shipment:', data.data);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -23,11 +23,17 @@ const ShipmentTrackingPage = () => {
       }
     };
 
-    fetchShipment();
+    if (orderId) {
+      fetchShipment();
+    }
   }, [orderId]);
+
+  console.log('Shipment:', shipment);
+  console.log('Error:', error);
 
   if (loading) return <p>Loading shipment info...</p>;
   if (error) return <p>Error: {error}</p>;
+  if (!shipment) return <p>No shipment details available.</p>;
 
   return (
     <div className="shipment-tracking-page">

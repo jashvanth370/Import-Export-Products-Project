@@ -20,8 +20,8 @@ const ProductsPage = () => {
         const response = await fetch('http://localhost:8080/api/products');
         if (!response.ok) throw new Error('Failed to fetch products');
         const data = await response.json();
-        console.log(data)
-        setProducts(data);
+        console.log('Fetched products:', data);
+        setProducts(Array.isArray(data.data) ? data.data : []);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -43,58 +43,68 @@ const ProductsPage = () => {
     setDays(1);
   };
 
-  const handleProceedTransaction = async () => {
+  const handleProceedOrder = async () => {
     if (!selectedProduct || !user) return;
 
     const orderData = {
-      importerId: user.id, // assumes your user object contains the ID
+      importerId: user.id,
       productId: selectedProduct.id,
       quantity: quantity,
-      shippingAddress: shippingAddress, // you can make this a field if needed
+      shippingAddress: shippingAddress,
+      exporterId: selectedProduct.exporterId,
     };
 
     try {
-      const response = await fetch('http://localhost:8080/api/orders', {
+      const response = await fetch('http://localhost:8080/api/orders/createOrder', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(orderData),
       });
+      
 
       if (!response.ok) throw new Error('Failed to place order');
 
       const result = await response.json();
       alert(`✅ Order placed successfully! Order ID: ${result.id}`);
-      setSelectedProduct(null); // close modal
+      console.log('Order result:', result);
+      console.log('Order data:', orderData);
+      setSelectedProduct(null);
     } catch (error) {
       console.error('Error placing order:', error);
       alert('❌ Failed to place order. Please try again.');
     }
   };
 
-
   return (
     <div className="products-page">
-      <h2>Welcome, {user?.role === 'IMPORTER'}  {user.name}</h2>
+      <h2>
+        Welcome, {user?.role === 'IMPORTER' ? 'Importer' : 'User'} {user?.name}
+      </h2>
       <h3>Available Products:</h3>
 
-      <div className="products-grid">
-        {products.map((product) => (
-          <div className="product-card" key={product.id}>
-            <h4>📦 {product.name}</h4>
-            <p>{product.description}</p>
-            <p><strong>Qty:</strong> {product.quantity}</p>
-            <p><strong>Price:</strong> {product.value}</p>
-            <p><strong>Origin Country:</strong> 🌍 {product.originCountry}</p>
-            <p><strong>Weight:</strong> {product.weight} kg</p>
-            <p><strong>Exporter:</strong> 👤 {product.exporter}</p>
-            <button onClick={() => handleRequestClick(product)}>Request Product</button>
-          </div>
-        ))}
-      </div>
+      {loading ? (
+        <p>Loading products...</p>
+      ) : error ? (
+        <p style={{ color: 'red' }}>Error: {error}</p>
+      ) : products.length === 0 ? (
+        <p>No products available at the moment.</p>
+      ) : (
+        <div className="products-grid">
+          {products.map((product) => (
+            <div className="product-card" key={product.id}>
+              <h4>📦 {product.name}</h4>
+              <p>{product.description}</p>
+              <p><strong>Qty:</strong> {product.quantity}</p>
+              <p><strong>Price:</strong> ${product.value}</p>
+              <p><strong>Origin Country:</strong> 🌍 {product.originCountry}</p>
+              <p><strong>Weight:</strong> {product.weight} kg</p>
+              <p><strong>Exporter:</strong> 👤 {product.exporterName}</p>
+              <button onClick={() => handleRequestClick(product)}>Request Product</button>
+            </div>
+          ))}
+        </div>
+      )}
 
-      {/* Modal Form */}
       {selectedProduct && (
         <div className="modal-overlay">
           <div className="modal-content">
@@ -128,7 +138,7 @@ const ProductsPage = () => {
             </label>
             <div className="form-buttons">
               <button onClick={() => setSelectedProduct(null)}>Cancel</button>
-              <button onClick={handleProceedTransaction}>Proceed to Transaction</button>
+              <button onClick={handleProceedOrder}>Order Product</button>
             </div>
           </div>
         </div>

@@ -79,6 +79,10 @@ const Navbar = () => {
               <li><button onClick={() => { closeMenu(); handleLogout(); }} className="logout-button">
                 <FaPerson /> Logout
               </button></li>
+
+              <li><NavLink to="/exporter/pending-orders" onClick={closeMenu}><FaBoltLightning /> Pending Orders</NavLink></li>
+
+              <li><NavLink to="/exporter-dashboard" onClick={closeMenu}><FaThinkPeaks /> Exporter Dashboard</NavLink></li>
             </>
           )}
           <li><NavLink to="/quote" onClick={closeMenu}>Get a Quote</NavLink></li>

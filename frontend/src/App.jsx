@@ -11,9 +11,11 @@ import AdminDashboard from './components/AdminDashboard';
 import Footer from './components/Footer';
 import TransactionPage from './pages/TransactionPage';
 import Addproducts from './auth/AddProducts'
-import ProductsExporter from './auth/ProductExporter';
+import ProductsExporter from './pages/ProductExporter';
 import MyOrdersPage from './pages/MyOrderPage';
 import ShipmentTrackingPage from './pages/ShipmentTrackingPage';
+import PendingOrdersPage from './pages/PendingOrdersPage';
+import ExporterOrderDashboard from './pages/ExporterOrderDashboard';
 
 function App() {
   return (
@@ -34,6 +36,8 @@ function App() {
           <Route path="product-form" element={<Addproducts />} />
           <Route path="/my-orders" element={<MyOrdersPage />} />
           <Route path="/track-shipment/:orderId" element={<ShipmentTrackingPage />} />
+          <Route path="/exporter/pending-orders" element={<PendingOrdersPage />} />
+          <Route path="/exporter-dashboard" element={<ExporterOrderDashboard />} />
 
 
           <Route path="/users" element={<UserForm />} />

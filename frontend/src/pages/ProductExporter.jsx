@@ -28,7 +28,7 @@ const ProductsExporter = () => {
         });
         if (!res.ok) throw new Error('Failed to fetch products');
         const data = await res.json();
-        setProducts(data);
+        setProducts(Array.isArray(data.data) ? data.data : []);
       } catch (err) {
         setError(err.message);
       }
@@ -36,6 +36,22 @@ const ProductsExporter = () => {
 
     fetchProducts();
   }, [user]);
+
+  const handleDeleteProduct = async (productId) => {
+  try {
+    const response = await fetch(`http://localhost:8080/api/products/${productId}`, {
+      method: 'DELETE',
+    });
+
+    if (!response.ok) throw new Error('Failed to delete product');
+    setProducts(prev => prev.filter(p => p.id !== productId));
+    alert('✅ Product deleted successfully');
+  } catch (error) {
+    console.error(error);
+    alert('❌ Failed to delete product');
+  }
+};
+
 
   const handleAddProduct = async (e) => {
     e.preventDefault();
@@ -84,6 +100,10 @@ const ProductsExporter = () => {
             <p><strong>Price:</strong> ${product.value}</p>
             <p><strong>Origin:</strong> {product.originCountry}</p>
             <p><strong>Weight:</strong> {product.weight} kg</p>
+            <button onClick={() => handleDeleteProduct(product.id)}>
+              Delete Product
+            </button>
+
           </div>
         ))}
       </div>

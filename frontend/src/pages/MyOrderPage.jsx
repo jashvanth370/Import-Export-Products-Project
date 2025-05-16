@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import useAuthStore from '../store/AuthStore';
 import '../styles/MyOrderPage.css';
-import ShipmentTrackingPage from './ShipmentTrackingPage';
+import { useNavigate } from 'react-router-dom';
 
 const MyOrdersPage = () => {
     const { user } = useAuthStore();
     const [orders, setOrders] = useState([]);
-    const [shipment, setShipment] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (!user) return;
@@ -18,7 +18,8 @@ const MyOrdersPage = () => {
                 const res = await fetch(`http://localhost:8080/api/orders/user/${user.id}`);
                 if (!res.ok) throw new Error('Failed to fetch orders');
                 const data = await res.json();
-                setOrders(data);
+                console.log('Fetched orders:', data);
+                setOrders(Array.isArray(data.data) ? data.data : []);
             } catch (err) {
                 setError(err.message);
             } finally {
@@ -36,7 +37,7 @@ const MyOrdersPage = () => {
     return (
         <div className="my-orders-page">
             <h2>📦 My Orders</h2>
-            {orders.length === 0 ? (
+            {Array.isArray(orders) && orders.length === 0 ? (
                 <p>You haven't placed any orders yet.</p>
             ) : (
                 <table className="orders-table">
@@ -46,23 +47,27 @@ const MyOrdersPage = () => {
                             <th>Qty</th>
                             <th>Order Date</th>
                             <th>Shipping Address</th>
-                            <th>Status</th> {/* Optional if you integrate shipment */}
+                            <th>Status</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {orders.map((order) => (
-                            <tr key={order.id}>
-                                <td>{order.productId}</td>
-                                <td>{order.quantity}</td>
-                                <td>{new Date(order.orderDate).toLocaleDateString()}</td>
-                                <td>{order.shippingAddress}</td>
-                                <td>{shipment}</td> {/* Replace with actual status if linked to shipment */}
+                        {orders.map((order, index) => (
+                            <tr key={order.id || index}>
+                                <td>{order.productId ?? 'N/A'}</td>
+                                <td>{order.quantity ?? 'N/A'}</td>
                                 <td>
-                                    <button onClick={ShipmentTrackingPage}>
+                                    {order.orderDate
+                                        ? new Date(order.orderDate).toLocaleDateString()
+                                        : 'N/A'}
+                                </td>
+                                <td>{order.shippingAddress ?? 'N/A'}</td>
+                                <td>{order.status ?? 'N/A'}</td>
+                                <td>
+                                    <button onClick={() => navigate(`/shipment-tracking/${order.id}`)}>
                                         Track Shipment
                                     </button>
                                 </td>
-{/* () => navigate(`/track-shipment/${order.id}`) */}
                             </tr>
                         ))}
                     </tbody>
