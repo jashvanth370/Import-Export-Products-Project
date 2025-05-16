@@ -4,6 +4,7 @@ import com.exportimport.backend.entity.Order;
 import com.exportimport.backend.entity.ShipmentStatus;
 import com.exportimport.backend.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,6 +30,7 @@ public class OrderService {
                     .orderDate(LocalDateTime.now())
                     .shippingAddress(request.getShippingAddress())
                     .quantity(request.getQuantity())
+                    .exporterId(request.getExporterId())
                     .build();
             orderRepo.save(order);
             return new Response<>(200,"Order Create successfully",null);
@@ -92,4 +94,52 @@ public class OrderService {
         }
     }
 
+    public Response<?> updateOrderStatus(Long orderId, ShipmentStatus status) {
+        try {
+            Optional<Order> optionalOrder = orderRepo.findById(orderId);
+            if (optionalOrder.isEmpty()) {
+                return new Response<>(404, "Order not found", null);
+            }
+
+            Order order = optionalOrder.get();
+            order.setStatus(status);
+            orderRepo.save(order);
+
+            return new Response<>(200, "Order status updated to " + status.name(), order);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Response<>(500, "Internal server error", null);
+        }
+    }
+
+    public Response<?> getPendingOrders() {
+        try {
+            List<Order> pendingOrders = orderRepo.findByStatus(ShipmentStatus.PENDING);
+            return new Response<>(200, "Pending orders fetched", pendingOrders);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Response<>(500, "Failed to fetch pending orders", null);
+        }
+    }
+
+    public Response<?> getOrdersByExporter(Long exporterId) {
+        try {
+            List<Order> orders = orderRepo.findByExporterId(exporterId);
+            return new Response<>(200, "Orders fetched for exporter", orders);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Response<>(500, "Error fetching orders", null);
+        }
+    }
+
+
+    public Response<?> getConfirmOrders() {
+        try {
+            List<Order> confirmOrders = orderRepo.findByStatus(ShipmentStatus.CONFIRMED);
+            return new Response<>(200, "Confirm orders fetched", confirmOrders);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Response<>(500, "Failed to fetch confirm orders", null);
+        }
+    }
 }

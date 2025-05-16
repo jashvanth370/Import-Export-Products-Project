@@ -2,11 +2,10 @@ package com.exportimport.backend.controller;
 import com.exportimport.backend.DTO.OrderRequest;
 import com.exportimport.backend.DTO.Response;
 import com.exportimport.backend.DTO.ShipmentRequest;
+import com.exportimport.backend.entity.ShipmentStatus;
 import com.exportimport.backend.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/orders")
@@ -32,11 +31,39 @@ public class OrderController {
         return orderService.getOrderById(orderId);
     }
 
-    @PostMapping("/createShipment/{orderId}")
+    @PostMapping("/{orderId}/shipment")
     public Response<?> createShipment(@RequestBody ShipmentRequest request ,
                                       @PathVariable Long orderId) {
         return orderService.createShipment(request,orderId);
     }
+
+    @PutMapping("/{orderId}/accept")
+    public Response<?> acceptOrder(@PathVariable Long orderId) {
+        return orderService.updateOrderStatus(orderId, ShipmentStatus.CONFIRMED);
+    }
+
+    @PutMapping("/{orderId}/reject")
+    public Response<?> rejectOrder(@PathVariable Long orderId) {
+        return orderService.updateOrderStatus(orderId, ShipmentStatus.REJECTED);
+    }
+
+    @GetMapping("/pending")
+    public Response<?> getPendingOrders() {
+        return orderService.getPendingOrders();
+    }
+
+    @GetMapping("/confirm")
+    public Response<?> getConfirmOrders() {
+        return orderService.getConfirmOrders();
+    }
+
+
+    @GetMapping("/exporter/{exporterId}/orders")
+    public Response<?> getOrdersByExporter(@PathVariable Long exporterId) {
+        return orderService.getOrdersByExporter(exporterId);
+    }
+
+
 
 
 }

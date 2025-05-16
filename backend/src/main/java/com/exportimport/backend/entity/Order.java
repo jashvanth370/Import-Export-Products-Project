@@ -19,6 +19,7 @@ public class Order {
     private Long id;
 
     private Long importerId;
+    private Long exporterId;
     private Long productId;
     private int quantity;
     private String shippingAddress;

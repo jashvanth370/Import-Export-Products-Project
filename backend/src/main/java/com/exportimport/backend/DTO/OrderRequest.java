@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 @Data
 public class OrderRequest {
     private Long importerId;
+    private Long exporterId;
     private Long productId;
     private int quantity;
     private String shippingAddress;
