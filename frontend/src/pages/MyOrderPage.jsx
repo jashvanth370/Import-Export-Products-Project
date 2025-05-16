@@ -64,7 +64,7 @@ const MyOrdersPage = () => {
                                 <td>{order.shippingAddress ?? 'N/A'}</td>
                                 <td>{order.status ?? 'N/A'}</td>
                                 <td>
-                                    <button onClick={() => navigate(`/shipment-tracking/${order.id}`)}>
+                                    <button onClick={() => navigate(`/track-shipment/${order.id}`)}>
                                         Track Shipment
                                     </button>
                                 </td>

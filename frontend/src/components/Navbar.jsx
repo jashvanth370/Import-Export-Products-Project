@@ -28,7 +28,7 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-      <div className="navbar-logo">TradeBridge</div>
+      <div className="navbar-logo">🌐 TradeBridge</div>
       <div className="hamburger" onClick={toggleMenu}>
         {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
       </div>
@@ -41,6 +41,7 @@ const Navbar = () => {
           <>
             <li><NavLink to="/users" onClick={closeMenu}><FaPersonBooth /> Register</NavLink></li>
             {/* <li><NavLink to="/quote" onClick={closeMenu}>Get a Quote</NavLink></li> */}
+            <li><NavLink to="/products" onClick={closeMenu}><FaBoxOpen /> Products</NavLink></li>
           </>
         )}
 
@@ -76,17 +77,17 @@ const Navbar = () => {
                 <FaWeightHanging /> My Products
               </NavLink></li>
 
+              <li><NavLink to="/exporter/pending-orders" onClick={closeMenu}><FaBoltLightning /> Pending Orders</NavLink></li>
+
+              <li><NavLink to="/exporter-dashboard" onClick={closeMenu}><FaThinkPeaks /> Dashboard</NavLink></li>
+
               <li><button onClick={() => { closeMenu(); handleLogout(); }} className="logout-button">
                 <FaPerson /> Logout
               </button></li>
-
-              <li><NavLink to="/exporter/pending-orders" onClick={closeMenu}><FaBoltLightning /> Pending Orders</NavLink></li>
-
-              <li><NavLink to="/exporter-dashboard" onClick={closeMenu}><FaThinkPeaks /> Exporter Dashboard</NavLink></li>
             </>
           )}
-          <li><NavLink to="/products" onClick={closeMenu}><FaBoxOpen /> Products</NavLink></li>
-        <li><NavLink to="/quote" onClick={closeMenu}>Get a Quote</NavLink></li>
+          
+        {/* <li><NavLink to="/quote" onClick={closeMenu}>Get a Quote</NavLink></li> */}
         <li><NavLink to="/about" onClick={closeMenu}> <FaInfoCircle /> About</NavLink></li>
       </ul>
     </nav>

@@ -3,6 +3,11 @@
   background-color: #f9f9f9;
   min-height: 100vh;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 2rem;
+  background: linear-gradient(to right, #e0f7fa, #b2dfdb);
+  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  animation: fadeIn 0.8s ease;
 }
 
 .my-orders-page h2 {

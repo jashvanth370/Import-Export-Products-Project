@@ -1,5 +1,4 @@
-import React from 'react';
-import '../styles/About.css'; // Optional, for custom styling
+import '../styles/About.css';
 
 function About() {
   return (

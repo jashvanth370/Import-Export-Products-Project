@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import useAuthStore from '../store/AuthStore';
 import '../styles/ShipmentTrackingPage.css';
 
 const ShipmentTrackingPage = () => {
-  const { orderId } = useParams(); // Get orderId from URL parameters
+  const { orderId } = useParams(); // Get orderId from URL
+  const { user } = useAuthStore(); // Authenticated user
   const [shipment, setShipment] = useState(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
@@ -11,11 +13,12 @@ const ShipmentTrackingPage = () => {
   useEffect(() => {
     const fetchShipment = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/api/orders/${orderId}/shipment`);
-        if (!response.ok) throw new Error('Shipment not found');
-        const data = await response.json();
-        setShipment(data.data); // access the `data` field from your backend response wrapper
-        console.log('Fetched shipment:', data.data);
+        const response = await fetch(
+          `http://localhost:8080/api/orders/${orderId}/shipment?userId=${user?.id}`
+        );
+        if (!response.ok) throw new Error('Shipment not found or unauthorized.');
+        const result = await response.json();
+        setShipment(result.data);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -23,27 +26,22 @@ const ShipmentTrackingPage = () => {
       }
     };
 
-    if (orderId) {
-      fetchShipment();
-    }
-  }, [orderId]);
+    if (orderId && user?.id) fetchShipment();
+  }, [orderId, user]);
 
-  console.log('Shipment:', shipment);
-  console.log('Error:', error);
-
-  if (loading) return <p>Loading shipment info...</p>;
-  if (error) return <p>Error: {error}</p>;
-  if (!shipment) return <p>No shipment details available.</p>;
+  if (loading) return <p className="status-text">⏳ Loading shipment info...</p>;
+  if (error) return <p className="status-text error">❌ {error}</p>;
+  if (!shipment) return <p className="status-text">🚫 No shipment details available.</p>;
 
   return (
     <div className="shipment-tracking-page">
       <h2>🚚 Shipment Tracking</h2>
       <div className="shipment-card">
-        <p><strong>Order ID:</strong> {shipment.orderId}</p>
-        <p><strong>Status:</strong> {shipment.status}</p>
-        <p><strong>Shipped Date:</strong> {new Date(shipment.shippedDate).toLocaleDateString()}</p>
-        <p><strong>Estimated Delivery:</strong> {new Date(shipment.estimatedDelivery).toLocaleDateString()}</p>
-        <p><strong>Tracking ID:</strong> {shipment.trackingNumber}</p>
+        <p><strong>📦 Order ID:</strong> {shipment.orderId}</p>
+        <p><strong>📍 Status:</strong> {shipment.status}</p>
+        <p><strong>📤 Shipped Date:</strong> {shipment.shippedDate}</p>
+        <p><strong>📅 Estimated Delivery:</strong> {shipment.shippedDate}</p>
+        <p><strong>🔎 Tracking ID:</strong> {shipment.trackingNumber}</p>
       </div>
     </div>
   );

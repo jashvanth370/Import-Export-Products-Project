@@ -14,6 +14,7 @@ const ProductsExporter = () => {
     value: '',
     originCountry: '',
     weight: '',
+    hsCode: '',
   });
 
   const navigate = useNavigate();
@@ -38,19 +39,19 @@ const ProductsExporter = () => {
   }, [user]);
 
   const handleDeleteProduct = async (productId) => {
-  try {
-    const response = await fetch(`http://localhost:8080/api/products/${productId}`, {
-      method: 'DELETE',
-    });
+    try {
+      const response = await fetch(`http://localhost:8080/api/products/${productId}`, {
+        method: 'DELETE',
+      });
 
-    if (!response.ok) throw new Error('Failed to delete product');
-    setProducts(prev => prev.filter(p => p.id !== productId));
-    alert('✅ Product deleted successfully');
-  } catch (error) {
-    console.error(error);
-    alert('❌ Failed to delete product');
-  }
-};
+      if (!response.ok) throw new Error('Failed to delete product');
+      setProducts(prev => prev.filter(p => p.id !== productId));
+      alert('✅ Product deleted successfully');
+    } catch (error) {
+      console.error(error);
+      alert('❌ Failed to delete product');
+    }
+  };
 
 
   const handleAddProduct = async (e) => {
@@ -100,6 +101,8 @@ const ProductsExporter = () => {
             <p><strong>Price:</strong> ${product.value}</p>
             <p><strong>Origin:</strong> {product.originCountry}</p>
             <p><strong>Weight:</strong> {product.weight} kg</p>
+            <p><strong>HS Code:</strong> {product.hsCode}</p>
+
             <button onClick={() => handleDeleteProduct(product.id)}>
               Delete Product
             </button>
@@ -118,6 +121,7 @@ const ProductsExporter = () => {
               <input type="number" placeholder="Value ($)" required value={formData.value} onChange={(e) => setFormData({ ...formData, value: e.target.value })} />
               <input type="text" placeholder="Origin Country" required value={formData.originCountry} onChange={(e) => setFormData({ ...formData, originCountry: e.target.value })} />
               <input type="number" placeholder="Weight (kg)" required value={formData.weight} onChange={(e) => setFormData({ ...formData, weight: e.target.value })} />
+              <input type="text" placeholder="HS Code" required value={formData.hsCode} onChange={(e) => setFormData({ ...formData, hsCode: e.target.value })} />
               <div className="modal-buttons">
                 <button type="submit">Add Product</button>
                 <button type="button" className="cancel-btn" onClick={() => setShowModal(false)}>Cancel</button>

@@ -28,16 +28,16 @@ const ExporterOrderDashboard = () => {
     }
   }, [user]);
 
-  const handleAcceptOrder = async (orderId) => {
+  const handleAcceptOrder = async (orderId,action) => {
     try {
-      const response = await fetch(`http://localhost:8080/api/orders/confirm/${orderId}`, {
+      const response = await fetch(`http://localhost:8080/api/orders/${orderId}/${action}`, {
         method: 'PUT',
       });
 
       if (!response.ok) throw new Error('Failed to confirm order');
 
       alert('✅ Order confirmed!');
-      fetchOrders(); // refresh order list
+      fetchOrders(); 
     } catch (error) {
       console.error('Error confirming order:', error);
       alert('❌ Could not confirm order');
@@ -65,7 +65,7 @@ const ExporterOrderDashboard = () => {
               <p><strong>Shipping Address:</strong> {order.shippingAddress}</p>
               <p><strong>Status:</strong> {order.status}</p>
               {order.status === 'PENDING' && (
-                <button onClick={() => handleAcceptOrder(order.id)}>Accept Order</button>
+                <button onClick={() => handleAcceptOrder(order.id, 'accept')}>Accept Order</button>
               )}
             </div>
           ))}

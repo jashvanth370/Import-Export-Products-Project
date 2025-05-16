@@ -18,6 +18,7 @@ const PendingOrdersPage = () => {
       });
       if (!res.ok) throw new Error('Failed to update order status');
       setOrders(prev => prev.filter(o => o.id !== orderId));
+      alert('✅ Order confirmed!');
     } catch (err) {
       console.error(err);
       alert('Error processing order');
