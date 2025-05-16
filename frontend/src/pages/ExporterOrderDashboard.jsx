@@ -59,9 +59,9 @@ const ExporterOrderDashboard = () => {
           {orders.map((order) => (
             <div className="order-card" key={order.id}>
               <h4>Order ID: {order.id}</h4>
-              <p><strong>Product:</strong> {order.product?.name}</p>
+              <p><strong>Product ID:</strong> {order.productId}</p>
               <p><strong>Quantity:</strong> {order.quantity}</p>
-              <p><strong>Importer:</strong> {order.importer?.name}</p>
+              <p><strong>Importer ID:</strong> {order.importerId}</p>
               <p><strong>Shipping Address:</strong> {order.shippingAddress}</p>
               <p><strong>Status:</strong> {order.status}</p>
               {order.status === 'PENDING' && (

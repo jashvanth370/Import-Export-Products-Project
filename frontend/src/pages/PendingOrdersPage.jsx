@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import '../styles/PendingOrdersPage.css';
 
 const PendingOrdersPage = () => {
   const [orders, setOrders] = useState([]);
@@ -24,21 +25,40 @@ const PendingOrdersPage = () => {
   };
 
   return (
-    <div className="pending-orders">
-      <h2>📥 Pending Orders</h2>
-      {orders.length === 0 ? <p>No pending orders.</p> : (
-        <ul>
-          {orders.map(order => (
-            <li key={order.id}>
-              <p><strong>Importer:</strong> {order.importerName}</p>
-              <p><strong>Product:</strong> {order.productName}</p>
-              <p><strong>Quantity:</strong> {order.quantity}</p>
-              <p><strong>Shipping Address:</strong> {order.shippingAddress}</p>
-              <button onClick={() => handleAction(order.id, 'accept')}>✅ Accept</button>
-              <button onClick={() => handleAction(order.id, 'reject')}>❌ Reject</button>
-            </li>
-          ))}
-        </ul>
+    <div className="pending-orders-container">
+      <h2 className="fade-in">📥 Pending Orders</h2>
+      {orders.length === 0 ? (
+        <p className="fade-in">No pending orders.</p>
+      ) : (
+        <table className="orders-table fade-in">
+          <thead>
+            <tr>
+              <th>Importer ID</th>
+              <th>Product ID</th>
+              <th>Quantity</th>
+              <th>Shipping Address</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {orders.map(order => (
+              <tr key={order.id}>
+                <td>{order.importerId}</td>
+                <td>{order.productId}</td>
+                <td>{order.quantity}</td>
+                <td>{order.shippingAddress}</td>
+                <td>
+                  <button className="btn accept" onClick={() => handleAction(order.id, 'accept')}>
+                    ✅ Accept
+                  </button>
+                  <button className="btn reject" onClick={() => handleAction(order.id, 'reject')}>
+                    ❌ Reject
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       )}
     </div>
   );

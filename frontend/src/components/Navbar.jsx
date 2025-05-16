@@ -40,7 +40,7 @@ const Navbar = () => {
         {!user && (
           <>
             <li><NavLink to="/users" onClick={closeMenu}><FaPersonBooth /> Register</NavLink></li>
-            <li><NavLink to="/quote" onClick={closeMenu}>Get a Quote</NavLink></li>
+            {/* <li><NavLink to="/quote" onClick={closeMenu}>Get a Quote</NavLink></li> */}
           </>
         )}
 
@@ -85,7 +85,8 @@ const Navbar = () => {
               <li><NavLink to="/exporter-dashboard" onClick={closeMenu}><FaThinkPeaks /> Exporter Dashboard</NavLink></li>
             </>
           )}
-          <li><NavLink to="/quote" onClick={closeMenu}>Get a Quote</NavLink></li>
+          <li><NavLink to="/products" onClick={closeMenu}><FaBoxOpen /> Products</NavLink></li>
+        <li><NavLink to="/quote" onClick={closeMenu}>Get a Quote</NavLink></li>
         <li><NavLink to="/about" onClick={closeMenu}> <FaInfoCircle /> About</NavLink></li>
       </ul>
     </nav>
