@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import './App.css';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import About from './pages/About';
@@ -22,7 +23,7 @@ function App() {
     <Router>
       <Navbar />
       
-      <div style={{ padding: '2rem' }}>
+      <div style={{ padding: '2rem' }} className="app-layout">
         <Routes>
           <Route path="/" element={<Home/>} />
           <Route path="/products" element={<ProductsPage />} />
