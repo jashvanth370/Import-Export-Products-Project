@@ -102,6 +102,7 @@ public class ProductService {
                 .value(product.getValue())
                 .quantity(product.getQuantity())
                 .exporterName(product.getExporter().getName())
+                .exporterId(product.getExporter().getId())
                 .build();
     }
 

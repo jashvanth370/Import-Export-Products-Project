@@ -18,6 +18,7 @@ public class ProductResponse {
     private Double value;
     private String quantity;
     private String exporterName;
+    private Long exporterId;
     private int statusCode;
     private String message;
 
