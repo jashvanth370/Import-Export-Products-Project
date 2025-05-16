@@ -3,6 +3,11 @@
   font-family: 'Segoe UI', sans-serif;
   background: linear-gradient(to right, #f1fdfc, #ffffff);
   min-height: 100vh;
+  padding: 2rem;
+  background: linear-gradient(to right, #e0f7fa, #b2dfdb);
+  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  animation: fadeIn 0.8s ease;
 }
 
 .products-page h2 {
