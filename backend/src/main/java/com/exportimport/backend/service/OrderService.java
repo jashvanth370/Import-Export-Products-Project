@@ -143,19 +143,13 @@ public class OrderService {
         }
     }
 
-    public ShipmentResponse getShipmentDetails(Long orderId, Long userId) {
+    public ShipmentResponse getShipmentDetails(Long orderId) {
         Order order = orderRepo.findById(orderId)
                 .orElseThrow(() -> new RuntimeException("Order not found"));
 
-        // Check if current user is involved in this order
-        if (!order.getExporterId().equals(userId) && !order.getImporterId().equals(userId)) {
-            throw new RuntimeException("You are not authorized to access this shipment");
-        }
-
-        // Estimate delivery if not set (e.g., 7 days after shipmentDate)
         LocalDateTime estimatedDelivery = null;
         if (order.getShipmentDate() != null) {
-            estimatedDelivery = order.getShipmentDate().plusDays(7); // simple logic
+            estimatedDelivery = order.getShipmentDate().plusDays(7);
         }
 
         return ShipmentResponse.builder()
@@ -166,4 +160,5 @@ public class OrderService {
                 .estimatedDelivery(estimatedDelivery)
                 .build();
     }
+
 }

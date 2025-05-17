@@ -65,10 +65,9 @@ public class OrderController {
 
     @GetMapping("/{id}/shipment")
     public ResponseEntity<ApiResponse<ShipmentResponse>> getShipment(
-            @PathVariable("id") Long orderId,
-            @RequestParam("userId") Long userId // passed from frontend
+            @PathVariable("id") Long orderId
     ) {
-        ShipmentResponse shipment = orderService.getShipmentDetails(orderId, userId);
+        ShipmentResponse shipment = orderService.getShipmentDetails(orderId);
         return ResponseEntity.ok(ApiResponse.success(shipment));
     }
 
