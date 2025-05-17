@@ -20,9 +20,9 @@ A web-based platform that streamlines the process of importing and exporting pro
 
 - **Frontend**: React, React Router, CSS3
 - **State Management**: useState, useEffect, Zustand (if applicable)
-- **Backend API**: Node.js / Spring Boot (depending on implementation)
-- **Database**: MongoDB / MySQL (optional backend storage)
-- **Hosting**: GitHub Pages / Vercel / Netlify (optional)
+- **Backend API**: Spring Boot (depending on implementation)
+- **Database**: MySQL (optional backend storage)
+- **Hosting**: GitHub Pages 
 
 ---
 
