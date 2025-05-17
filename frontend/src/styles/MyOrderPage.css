@@ -1,6 +1,6 @@
 .my-orders-page {
   padding: 2rem;
-  background: linear-gradient(to right, #e0f7fa, #b2dfdb);
+  background: url('/pages/image10.jpg') center/cover no-repeat;
   min-height: 100vh;
   font-family: 'Segoe UI', sans-serif;
   animation: fadeIn 0.8s ease;

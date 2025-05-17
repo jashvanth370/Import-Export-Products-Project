@@ -1,12 +1,15 @@
 .exporter-orders-dashboard {
   padding: 20px;
   padding: 2rem;
-  background: linear-gradient(to right, #e0f7fa, #b2dfdb);
+  background: url('/pages/image4.jpg') center/cover no-repeat;
   min-height: 100vh;
   font-family: 'Segoe UI', sans-serif;
   animation: fadeIn 0.8s ease;
 }
 
+.exporter-orders-dashboard h2{
+  color: white;
+}
 .orders-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));

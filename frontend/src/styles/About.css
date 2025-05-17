@@ -3,14 +3,15 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #b2dfdb, #e0f2f1);
+  background: url('/pages/image9.jpg') center/cover no-repeat;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   padding: 2rem;
   animation: fadeSlideIn 0.7s ease-in;
+
 }
 
 .about-container {
-  background: white;
+  background: rgba(255, 255, 255, 0.9);
   padding: 3rem;
   border-radius: 20px;
   box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);

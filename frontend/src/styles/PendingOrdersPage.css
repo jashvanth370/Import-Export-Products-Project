@@ -3,7 +3,7 @@
   font-family: 'Segoe UI', sans-serif;
   animation: fadeIn 0.6s ease-in-out;
   padding: 2rem;
-  background: linear-gradient(to right, #e0f7fa, #b2dfdb);
+  background: url('/pages/image2.jpg') center/cover no-repeat;
   min-height: 100vh;
   font-family: 'Segoe UI', sans-serif;
   animation: fadeIn 0.8s ease;
@@ -11,7 +11,7 @@
 
 .products-exporter-page {
   padding: 2rem;
-  background: linear-gradient(to right, #e0f7fa, #b2dfdb);
+  /* background: linear-gradient(to right, #e0f7fa, #b2dfdb); */
   min-height: 100vh;
   font-family: 'Segoe UI', sans-serif;
   animation: fadeIn 0.8s ease;

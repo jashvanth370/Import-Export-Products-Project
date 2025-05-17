@@ -1,10 +1,10 @@
 .products-page {
   padding: 2rem;
   font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(to right, #f1fdfc, #ffffff);
+  /* background: linear-gradient(to right, #f1fdfc, #ffffff); */
   min-height: 100vh;
   padding: 2rem;
-  background: linear-gradient(to right, #e0f7fa, #b2dfdb);
+  background: url('/pages/image7.jpg') center/cover no-repeat;
   min-height: 100vh;
   font-family: 'Segoe UI', sans-serif;
   animation: fadeIn 0.8s ease;
@@ -30,7 +30,7 @@
 }
 
 .product-card {
-  background-color: #ffffff;
+  background: rgba(255, 255, 255, 0.9);
   padding: 1.5rem;
   border-radius: 16px;
   box-shadow: 0 8px 24px rgba(0, 121, 107, 0.1);
