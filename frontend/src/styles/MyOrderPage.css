@@ -1,8 +1,4 @@
 .my-orders-page {
-  padding: 20px;
-  background-color: #f9f9f9;
-  min-height: 100vh;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   padding: 2rem;
   background: linear-gradient(to right, #e0f7fa, #b2dfdb);
   min-height: 100vh;
@@ -12,48 +8,103 @@
 
 .my-orders-page h2 {
   text-align: center;
-  color: #333;
-  margin-bottom: 30px;
+  color: #004d40;
+  margin-bottom: 2rem;
+  font-size: 2rem;
 }
 
 .orders-table {
   width: 100%;
   border-collapse: collapse;
   background-color: #fff;
-  border-radius: 10px;
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  animation: fadeSlideIn 0.6s ease-in-out;
 }
 
 .orders-table th,
 .orders-table td {
-  padding: 12px 16px;
+  padding: 16px 20px;
   text-align: left;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid #eee;
 }
 
 .orders-table th {
-  background-color: #f0f0f0;
-  color: #555;
+  background-color: #e0f2f1;
+  color: #00695c;
   font-weight: 600;
 }
 
-.orders-table tr:hover {
-  background-color: #f5f5f5;
-  transition: background-color 0.2s ease;
+.orders-table td {
+  color: #333;
 }
 
-.orders-table td {
-  color: #444;
+.orders-table tr:hover {
+  background-color: #f1f1f1;
+  transition: background-color 0.3s ease;
+}
+
+.status-badge {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: capitalize;
+  display: inline-block;
+}
+
+.status-badge.Pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.status-badge.Shipped {
+  background-color: #d1ecf1;
+  color: #0c5460;
+}
+
+.status-badge.Delivered {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.orders-table button {
+  background-color: #00796b;
+  color: white;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.orders-table button:hover {
+  background-color: #004d40;
 }
 
 @media (max-width: 768px) {
   .orders-table {
     font-size: 14px;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
   }
 
   .orders-table th,
   .orders-table td {
     padding: 10px;
   }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }

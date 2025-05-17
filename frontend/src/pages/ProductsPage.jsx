@@ -37,6 +37,7 @@ const ProductsPage = () => {
     if (!user) {
       alert('Please log in to request a product.');
       navigate('/login');
+      // navigate('/products');
       return;
     }
     setSelectedProduct(product);

@@ -1,75 +1,33 @@
-/* ===== BACKDROP ===== */
-.modal-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 64, 64, 0.4);
-  backdrop-filter: blur(6px);
+/* ===== USER FORM PAGE ===== */
+.user-form-page {
   display: flex;
-  align-items: center;
   justify-content: center;
-  z-index: 1000;
-}
-
-/* ===== MODAL CONTAINER ===== */
-.modal {
-  background: linear-gradient(to bottom right, #ffffff, #f1f8e9);
-  border-radius: 16px;
-  box-shadow: 0 20px 50px rgba(0, 121, 107, 0.3);
+  align-items: flex-start;
   padding: 2rem;
-  width: 90%;
-  max-width: 500px;
-  position: relative;
-  animation: slideIn 0.3s ease-out;
-  overflow-y: auto;
-  max-height: 90vh;
+  background: linear-gradient(to right, #e0f7fa, #b2dfdb);
+  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  animation: fadeIn 0.8s ease;
 }
 
-/* ===== MODAL ANIMATION ===== */
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateY(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* ===== CLOSE BUTTON ===== */
-.close-button {
-  position: absolute;
-  top: 1.2rem;
-  right: 1.5rem;
-  font-size: 1.5rem;
-  background: transparent;
-  border: none;
-  color: #004d40;
-  cursor: pointer;
-  transition: transform 0.2s ease, color 0.3s ease;
-}
-
-.close-button:hover {
-  transform: rotate(90deg);
-  color: #d84315;
-}
-
-/* ===== USER FORM ===== */
-.user-form {
+.user-form-container {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+  padding: 3rem;
   width: 100%;
-  font-family: 'Arial', sans-serif;
+  max-width: 500px;
 }
 
-.user-form h2 {
+/* ===== HEADER ===== */
+.user-form-container h2 {
   text-align: center;
   font-size: 1.8rem;
   color: #004d40;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
 
+/* ===== FORM ELEMENTS ===== */
 .form-label {
   display: block;
   margin: 0.6rem 0 0.3rem;
@@ -86,7 +44,7 @@
   font-size: 1rem;
   background-color: #e0f2f1;
   color: #004d40;
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
   transition: border 0.3s ease, background-color 0.3s ease;
 }
 
@@ -96,6 +54,7 @@
   outline: none;
 }
 
+/* ===== SUBMIT BUTTON ===== */
 .form-button {
   width: 100%;
   padding: 0.9rem;
@@ -113,11 +72,4 @@
 .form-button:hover {
   background-color: #004d40;
   transform: scale(1.02);
-}
-
-/* ===== ERROR MESSAGE ===== */
-.error {
-  color: red;
-  text-align: center;
-  margin-bottom: 1rem;
 }
