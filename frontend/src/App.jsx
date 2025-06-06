@@ -17,6 +17,7 @@ import MyOrdersPage from './pages/MyOrderPage';
 import ShipmentTrackingPage from './pages/ShipmentTrackingPage';
 import PendingOrdersPage from './pages/PendingOrdersPage';
 import ExporterOrderDashboard from './pages/ExporterOrderDashboard';
+import UserProfilePage from './pages/UserProfilePage';
 
 function App() {
   return (
@@ -32,13 +33,14 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="transaction" element={<TransactionPage />} />
+          {/* <Route path="transaction" element={<TransactionPage />} /> */}
           <Route path="/product-exporter" element={<ProductsExporter />} />
           <Route path="product-form" element={<Addproducts />} />
           <Route path="/my-orders" element={<MyOrdersPage />} />
           <Route path="/track-shipment/:orderId" element={<ShipmentTrackingPage />} />
           <Route path="/exporter/pending-orders" element={<PendingOrdersPage />} />
           <Route path="/exporter-dashboard" element={<ExporterOrderDashboard />} />
+          <Route path="/user-profile:id" element={<UserProfilePage />} />
 
 
           <Route path="/users" element={<UserForm />} />

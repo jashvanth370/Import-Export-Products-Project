@@ -41,6 +41,23 @@ function UserForm() {
             onChange={(e) => setForm({ ...form, email: e.target.value })}
             required
           />
+          <label className="form-label">Phone</label>
+          <input
+            className="form-input"
+            placeholder="Phone Number"
+            value={form.phone}
+            onChange={(e) => setForm({ ...form, phone: e.target.value })}
+            required
+          />
+          <label className="form-label">Address</label>
+          
+          <input
+            className="form-input"
+            placeholder="Address"
+            value={form.address}
+            onChange={(e) => setForm({ ...form, address: e.target.value })}
+            required
+          />
 
           <label className="form-label">Password</label>
           <input
