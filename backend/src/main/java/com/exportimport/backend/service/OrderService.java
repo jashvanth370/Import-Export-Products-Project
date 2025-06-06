@@ -122,6 +122,20 @@ public class OrderService {
         }
     }
 
+    public Response<?> getPendingOrderByExporterId(Long exporterId , ShipmentStatus status){
+        try{
+            List<Order> pendingOrdersByExporter = orderRepo.findByExporterIdAndStatus(exporterId,status);
+            return new Response<>(200,"Pending order fetch by exporter",pendingOrdersByExporter);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return new Response<>(500, "Failed to fetch pending orders", null);
+        }
+    }
+
+    public List<Order> getPendingOrdersByExporterId(Long exporterId) {
+        return orderRepo.findByExporterIdAndStatus(exporterId, ShipmentStatus.valueOf("PENDING"));
+    }
     public Response<?> getOrdersByExporter(Long exporterId) {
         try {
             List<Order> orders = orderRepo.findByExporterId(exporterId);

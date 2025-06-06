@@ -20,5 +20,5 @@ public interface OrderRepository extends JpaRepository<Order,Long> {
 
     Optional<Order> findById(Long id);
 
-
+    List<Order> findByExporterIdAndStatus(Long exporterId, ShipmentStatus status);
 }

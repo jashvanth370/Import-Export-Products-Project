@@ -1,10 +1,14 @@
 package com.exportimport.backend.controller;
 import com.exportimport.backend.DTO.*;
+import com.exportimport.backend.entity.Order;
 import com.exportimport.backend.entity.ShipmentStatus;
 import com.exportimport.backend.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/orders")
@@ -56,11 +60,25 @@ public class OrderController {
         return orderService.getConfirmOrders();
     }
 
+    @GetMapping("/{exporterId}/{status}")
+    public Response<?> getPendingOrdersByExporter(@PathVariable Long exporterId,
+                                                  @RequestBody ShipmentStatus status){
+        return orderService.getPendingOrderByExporterId(exporterId,status);
+    }
+
 
     @GetMapping("/exporter/{exporterId}/orders")
     public Response<?> getOrdersByExporter(@PathVariable Long exporterId) {
         return orderService.getOrdersByExporter(exporterId);
     }
+
+    @GetMapping("/pending/exporter/{exporterId}")
+    public ResponseEntity<?> getPendingOrdersByExporter(@PathVariable Long exporterId) {
+        List<Order> pendingOrders = orderService.getPendingOrdersByExporterId(exporterId);
+        return ResponseEntity.ok(Map.of("data", pendingOrders));
+    }
+
+
 
 
     @GetMapping("/{id}/shipment")
