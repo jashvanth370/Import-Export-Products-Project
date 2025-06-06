@@ -1,7 +1,5 @@
 package com.exportimport.backend.controller;
 
-//import com.exportimport.backend.dto.UserRequest;
-//import com.exportimport.backend.dto.UserResponse;
 
 import com.exportimport.backend.DTO.Response;
 import com.exportimport.backend.DTO.UserRequest;
@@ -66,7 +64,7 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/update-profile/{id}")
+    @PutMapping("/update-profile/{userId}")
     public Response<?> updateUser(@PathVariable Long userId,
                                   @RequestBody UserUpdateDTO userUpdateDTO){
         return userService.updateUser(userId, userUpdateDTO);

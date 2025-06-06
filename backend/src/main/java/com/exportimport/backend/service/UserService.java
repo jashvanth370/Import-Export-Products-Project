@@ -83,7 +83,7 @@ public class UserService implements UserDetailsService {
                 user.setPhone(user.getPhone());
                 userRepo.save(user);
             }
-            return new Response<>(200,"User Updated successfully",null);
+            return new Response<>(200,"User Updated successfully",user);
 
         }
         catch (Exception e){

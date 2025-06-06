@@ -8,9 +8,18 @@ import com.exportimport.backend.entity.User;
 import com.exportimport.backend.repository.ProductRepository;
 import com.exportimport.backend.repository.UserRepository;
 import com.exportimport.backend.service.ProductService;
+import jakarta.annotation.Resource;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -24,6 +33,28 @@ public class ProductController {
     @PostMapping("/add")
     public Response<?> createProduct(@RequestBody ProductRequest request) {
         return productService.createProduct(request);
+    }
+
+    @GetMapping("/profile-pic/{filename}")
+    public ResponseEntity<Resource> getProfilePic(@PathVariable String filename) throws IOException {
+        Path filePath = Paths.get("uploads/profile_pics", filename);
+        Resource resource = (Resource) new UrlResource(filePath.toUri());
+
+//        if (!resource.exists()) {
+//            return ResponseEntity.notFound().build();
+//        }
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.IMAGE_JPEG)
+                .body(resource);
+    }
+
+    @PostMapping(
+            value = "/{productId}/image",
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE
+    )
+    public ResponseEntity<?> uploadImage(@PathVariable Long productId, @RequestParam("image") MultipartFile imageFile) {
+        return productService.uploadImage(productId,imageFile);
     }
 
 

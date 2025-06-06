@@ -57,7 +57,7 @@ public class SecurityConfig {
         httpSecurity
                 .cors(Customizer.withDefaults()) // Allow cross-origin requests
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/**", "/auth/admin", "/api/users/role", "/auth/admin", "/login", "/register") // Whitelist routes
+                        .requestMatchers("/**","/uploads/**", "/auth/admin", "/api/users/role", "/auth/admin", "/login", "/register") // Whitelist routes
                         .permitAll()
                         .anyRequest().authenticated()) // Require authentication for all other requests
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Stateless authentication (JWT)

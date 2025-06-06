@@ -13,5 +13,6 @@ public class UserRequest {
     private UserRole role;
     private String phone;
     private String address;
+    private String profilePic;
 }
 

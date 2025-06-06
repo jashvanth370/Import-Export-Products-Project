@@ -22,6 +22,7 @@ public class Product {
     private Double value;
     private String status;
     private String quantity;
+    private String imageUrl;
 
 
     @ManyToOne

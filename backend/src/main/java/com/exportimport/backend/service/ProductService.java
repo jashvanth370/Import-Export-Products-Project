@@ -7,13 +7,25 @@ import com.exportimport.backend.entity.Product;
 import com.exportimport.backend.entity.User;
 import com.exportimport.backend.repository.ProductRepository;
 import com.exportimport.backend.repository.UserRepository;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,6 +41,7 @@ public class ProductService {
 
         try{
             User user = userRepo.findById(request.getExporterId()).orElseThrow(() -> new RuntimeException("User not found"));
+
             Product product = Product.builder()
                     .name(request.getName())
                     .hsCode(request.getHsCode())
@@ -39,7 +52,7 @@ public class ProductService {
                     .exporter(user)
                     .build();
             product = productRepo.save(product);
-            return new Response<>(200,"Product Registered Successfully",null);
+            return new Response<>(200,"Product Registered Successfully",product);
         }
         catch(Exception e){
             return new Response<>(500,"Internal Server Error",null);
@@ -101,6 +114,7 @@ public class ProductService {
                 .weight(product.getWeight())
                 .value(product.getValue())
                 .quantity(product.getQuantity())
+                .imageUrl(product.getImageUrl())
                 .exporterName(product.getExporter().getName())
                 .exporterId(product.getExporter().getId())
                 .build();
@@ -118,6 +132,32 @@ public class ProductService {
         }
         catch (Exception e){
             return new Response<>(500,"Internal error",null);
+        }
+    }
+
+
+    @Autowired
+    private FileStorageService fileStorageService;
+
+    public ResponseEntity<?> uploadImage(
+            Long productId, MultipartFile imageFile
+    ) {
+        try {
+            // 2. Find product by ID
+            Product product = productRepo.findById(productId)
+                    .orElseThrow(() -> new RuntimeException("Product not found"));
+
+            // 4. Save image
+            String imageUrl = fileStorageService.saveImage(imageFile);
+            product.setImageUrl(imageUrl);
+
+            // 5. Save updated product
+            productRepo.save(product);
+
+            return ResponseEntity.ok("Image uploaded successfully");
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Upload failed: " + e.getMessage());
         }
     }
 

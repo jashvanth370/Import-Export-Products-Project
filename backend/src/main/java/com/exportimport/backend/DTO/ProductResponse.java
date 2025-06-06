@@ -21,6 +21,7 @@ public class ProductResponse {
     private Long exporterId;
     private int statusCode;
     private String message;
+    private String imageUrl;
 
     public ProductResponse(Product product) {
     }
