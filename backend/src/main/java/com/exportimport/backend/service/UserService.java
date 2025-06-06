@@ -3,6 +3,7 @@ package com.exportimport.backend.service;
 import com.exportimport.backend.DTO.Response;
 import com.exportimport.backend.DTO.UserRequest;
 import com.exportimport.backend.DTO.UserResponse;
+import com.exportimport.backend.DTO.UserUpdateDTO;
 import com.exportimport.backend.entity.Product;
 import com.exportimport.backend.entity.User;
 import com.exportimport.backend.entity.UserRole;
@@ -38,6 +39,8 @@ public class UserService implements UserDetailsService {
                     .email(request.getEmail())
                     .password(encoder.encode(request.getPassword()))
                     .role(request.getRole())
+                    .address(request.getAddress())
+                    .phone(request.getPhone())
                     .build();
             userRepo.save(user);
             return new Response<>(200,"User Registered Successfully",null);
@@ -47,7 +50,20 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    public Response<?> updateUser(Long id, UserRequest userRequest){
+    public Response<?> getProfile(Long userId){
+        try{
+            Optional<User> existingUser = userRepo.findById(userId);
+            if(existingUser.isEmpty()){
+                return new Response<>(400,"File not found",null);
+            }
+            return new Response<>(200,"user fetched",existingUser);
+        }
+        catch (Exception e){
+            return new Response<>(500,"Internal Server error",null);
+        }
+    }
+
+    public Response<?> updateUser(Long id, UserUpdateDTO userRequest){
         try{
             Optional<User> existingUser = userRepo.findById(id);
             if(existingUser.isEmpty()){
@@ -63,7 +79,8 @@ public class UserService implements UserDetailsService {
                     user.setEmail(userRequest.getEmail());
                 }
                 user.setName(userRequest.getName());
-                user.setRole(userRequest.getRole());
+                user.setAddress(userRequest.getAddress());
+                user.setPhone(user.getPhone());
                 userRepo.save(user);
             }
             return new Response<>(200,"User Updated successfully",null);

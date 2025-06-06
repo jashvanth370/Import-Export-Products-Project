@@ -5,6 +5,7 @@ package com.exportimport.backend.controller;
 
 import com.exportimport.backend.DTO.Response;
 import com.exportimport.backend.DTO.UserRequest;
+import com.exportimport.backend.DTO.UserUpdateDTO;
 import com.exportimport.backend.service.UserService;
 import lombok.RequiredArgsConstructor;
 
@@ -65,6 +66,15 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
+    @PutMapping("/update-profile/{id}")
+    public Response<?> updateUser(@PathVariable Long userId,
+                                  @RequestBody UserUpdateDTO userUpdateDTO){
+        return userService.updateUser(userId, userUpdateDTO);
+    }
 
+    @GetMapping("/user-profile/{id}")
+    public Response<?> getUserProfile(@PathVariable Long id){
+        return userService.getProfile(id);
+    }
 
 }
