@@ -17,6 +17,13 @@
   }
 }
 
+.product-image {
+  border-radius: 8px;
+  margin-bottom: 10px;
+  object-fit: cover;
+}
+
+
 .products-exporter-page h2 {
   color: #004d40;
   margin-bottom: 1rem;

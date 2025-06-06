@@ -35,7 +35,7 @@ function App() {
           <Route path="/admin" element={<AdminDashboard />} />
           {/* <Route path="transaction" element={<TransactionPage />} /> */}
           <Route path="/product-exporter" element={<ProductsExporter />} />
-          <Route path="product-form" element={<Addproducts />} />
+          <Route path="products/add" element={<Addproducts />} />
           <Route path="/my-orders" element={<MyOrdersPage />} />
           <Route path="/track-shipment/:orderId" element={<ShipmentTrackingPage />} />
           <Route path="/exporter/pending-orders" element={<PendingOrdersPage />} />

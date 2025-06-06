@@ -53,6 +53,10 @@ const ProductsExporter = () => {
     }
   };
 
+  const handleUpdateProduct = async (productId) => {
+
+  }
+
 
   const handleAddProduct = async (e) => {
     e.preventDefault();
@@ -84,11 +88,13 @@ const ProductsExporter = () => {
     return null;
   }
 
+
+
   return (
     <div className="products-exporter-page">
       <h2>Welcome, {user.name} </h2>
 
-      <button onClick={() => setShowModal(true)}>➕ Add New Product</button>
+      <button onClick={() => navigate('/products/add')}>➕ Add New Product</button>
 
       <h3>My Products</h3>
       {error && <p style={{ color: 'red' }}>{error}</p>}
@@ -96,6 +102,18 @@ const ProductsExporter = () => {
       <div className="products-grid">
         {products.map(product => (
           <div key={product.id} className="product-card">
+            {product.imageUrl ? (
+              <img
+                src={`http://localhost:8080/${product.imageUrl}`}
+                alt={product.name}
+                className="product-image"
+                style={{ width: '150px', height: '150px', objectFit: 'cover' }}
+              />
+            ) : (
+              <div className="no-image-placeholder" style={{ width: '150px', height: '150px', background: '#ddd' }}>
+                No Image
+              </div>
+            )}
             <h4>{product.name}</h4>
             <p><strong>Quantity:</strong> {product.quantity}</p>
             <p><strong>Price:</strong> ${product.value}</p>
@@ -103,33 +121,20 @@ const ProductsExporter = () => {
             <p><strong>Weight:</strong> {product.weight} kg</p>
             <p><strong>HS Code:</strong> {product.hsCode}</p>
 
+
             <button onClick={() => handleDeleteProduct(product.id)}>
               Delete Product
+            </button>
+            <p></p>
+            <button onClick={() => handleUpdateProduct(product.id)}>
+              Update Product
             </button>
 
           </div>
         ))}
       </div>
 
-      {showModal && (
-        <div className="modal-overlay">
-          <div className="modal">
-            <h3>Add New Product</h3>
-            <form onSubmit={handleAddProduct}>
-              <input type="text" placeholder="Product Name" required value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} />
-              <input type="number" placeholder="Quantity" required value={formData.quantity} onChange={(e) => setFormData({ ...formData, quantity: e.target.value })} />
-              <input type="number" placeholder="Value ($)" required value={formData.value} onChange={(e) => setFormData({ ...formData, value: e.target.value })} />
-              <input type="text" placeholder="Origin Country" required value={formData.originCountry} onChange={(e) => setFormData({ ...formData, originCountry: e.target.value })} />
-              <input type="number" placeholder="Weight (kg)" required value={formData.weight} onChange={(e) => setFormData({ ...formData, weight: e.target.value })} />
-              <input type="text" placeholder="HS Code" required value={formData.hsCode} onChange={(e) => setFormData({ ...formData, hsCode: e.target.value })} />
-              <div className="modal-buttons">
-                <button type="submit">Add Product</button>
-                <button type="button" className="cancel-btn" onClick={() => setShowModal(false)}>Cancel</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
+
     </div>
   );
 };
