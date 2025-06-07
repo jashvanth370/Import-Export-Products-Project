@@ -8,6 +8,7 @@ const ProductsExporter = () => {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState('');
   const [showModal, setShowModal] = useState(false);
+  const [editingProductId, setEditingProductId] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
     quantity: '',
@@ -53,35 +54,51 @@ const ProductsExporter = () => {
     }
   };
 
-  const handleUpdateProduct = async (productId) => {
+  const handleUpdateProduct = (productId) => {
+    const product = products.find(p => p.id === productId);
+    if (product) {
+      setEditingProductId(productId);
+      setFormData({
+        name: product.name,
+        quantity: product.quantity,
+        value: product.value,
+        originCountry: product.originCountry,
+        weight: product.weight,
+        hsCode: product.hsCode,
+      });
+      setShowModal(true);
+    }
+  };
 
-  }
-
-
-  const handleAddProduct = async (e) => {
+  const handleSubmitUpdate = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`http://localhost:8080/api/products/add`, {
-        method: 'POST',
+      const res = await fetch(`http://localhost:8080/api/products/update/${editingProductId}`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify({
           ...formData,
-          exporterId: user.id
-        })
+          exporterId: user.id,
+        }),
       });
 
-      if (!res.ok) throw new Error('Failed to add product');
-      const newProduct = await res.json();
-      setProducts(prev => [...prev, newProduct]);
+      if (!res.ok) throw new Error('Failed to update product');
+
+      setProducts(prev =>
+        prev.map(p => (p.id === editingProductId ? { ...p, ...formData } : p))
+      );
+
       setShowModal(false);
-      setFormData({ name: '', quantity: '', value: '', originCountry: '', weight: '' });
+      setEditingProductId(null);
+      setFormData({ name: '', quantity: '', value: '', originCountry: '', weight: '', hsCode: '' });
     } catch (err) {
       setError(err.message);
     }
   };
+
 
   if (!user || user.role !== 'EXPORTER') {
     navigate('/');
@@ -133,6 +150,34 @@ const ProductsExporter = () => {
           </div>
         ))}
       </div>
+
+      {/* Update Modal */}
+      {showModal && (
+        <div className="modal">
+          <form className="modal-form" onSubmit={handleSubmitUpdate}>
+            <h3>Update Product</h3>
+            <input type="text" placeholder="Name" value={formData.name}
+                   onChange={(e) => setFormData({ ...formData, name: e.target.value })} required />
+            <input type="number" placeholder="Quantity" value={formData.quantity}
+                   onChange={(e) => setFormData({ ...formData, quantity: e.target.value })} required />
+            <input type="number" placeholder="Value ($)" value={formData.value}
+                   onChange={(e) => setFormData({ ...formData, value: e.target.value })} required />
+            <input type="text" placeholder="Origin Country" value={formData.originCountry}
+                   onChange={(e) => setFormData({ ...formData, originCountry: e.target.value })} required />
+            <input type="number" placeholder="Weight (kg)" value={formData.weight}
+                   onChange={(e) => setFormData({ ...formData, weight: e.target.value })} required />
+            <input type="text" placeholder="HS Code" value={formData.hsCode}
+                   onChange={(e) => setFormData({ ...formData, hsCode: e.target.value })} required />
+            <div className="modal-buttons">
+              <button type="submit">Update</button>
+              <button type="button" onClick={() => {
+                setShowModal(false);
+                setEditingProductId(null);
+              }}>Cancel</button>
+            </div>
+          </form>
+        </div>
+      )}
 
 
     </div>

@@ -101,7 +101,7 @@ const ProductForm = () => {
       if (!response.ok) throw new Error('Image upload failed');
 
       alert('Image uploaded successfully!');
-      navigate('/products');  // Go back to products list after upload
+      navigate('/product-exporter');  // Go back to products list after upload
     } catch (err) {
       setError(err.message);
     }
@@ -109,7 +109,7 @@ const ProductForm = () => {
 
   // Close modal and go back to product list
   const handleClose = () => {
-    navigate('/products');
+    navigate('/product-exporter');
   };
 
   return (
@@ -192,7 +192,10 @@ const ProductForm = () => {
                     required
                   />
                 </label>
-                <button type="submit">Add Product</button>
+                <div>
+                  <button type="submit">Add Product</button>
+                  <button onClick={handleClose}>cancel</button>
+                </div>
               </form>
             </div>
           </div>

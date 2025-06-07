@@ -12,6 +12,7 @@
   justify-content: center;
   z-index: 1000;
   animation: fadeIn 0.4s ease;
+  font-family: 'Segoe UI', sans-serif;
 }
 
 /* ===== MODAL CONTAINER ===== */
@@ -19,13 +20,15 @@
   background: linear-gradient(to bottom right, #ffffff, #f1f8e9);
   border-radius: 20px;
   box-shadow: 0 18px 48px rgba(0, 121, 107, 0.35);
-  padding: 2.2rem 2.5rem;
+  padding: 2rem 2.5rem;
   width: 90%;
   max-width: 600px;
   position: relative;
   animation: slideIn 0.4s ease-out;
   overflow-y: auto;
   max-height: 90vh;
+  color: white;
+  font-size: 0.9rem;
 }
 
 /* ===== ANIMATIONS ===== */
@@ -48,10 +51,10 @@
 /* ===== CLOSE BUTTON ===== */
 .close-button {
   position: absolute;
-  top: 1.1rem;
-  right: 1.4rem;
-  font-size: 1.8rem;
-  background: transparent;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.5rem;
+  background: none;
   border: none;
   color: #004d40;
   cursor: pointer;
@@ -63,47 +66,51 @@
   color: #d84315;
 }
 
-/* ===== FORM CONTAINER ===== */
-.modal .product-form-container {
+/* ===== FORM WRAPPER ===== */
+.product-form-container {
+  display: flex;
+  flex-direction: column;
   background: transparent;
   padding: 0;
   box-shadow: none;
-  font-family: 'Segoe UI', sans-serif;
 }
 
-/* ===== FORM TITLE ===== */
-.product-form h2 {
+/* ===== FORM HEADING ===== */
+.product-form-container h2 {
   text-align: center;
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 600;
   color: #004d40;
-  margin-bottom: 1.8rem;
+  margin-bottom: 1.5rem;
 }
 
-/* ===== LABEL STYLES ===== */
-.product-form label {
+/* ===== FORM LABELS ===== */
+.product-form-container label {
+  margin: 0.5rem 0 0.25rem;
   display: block;
-  font-size: 1.05rem;
+  font-size: 0.95rem;
   font-weight: 500;
-  margin: 0.7rem 0 0.25rem;
-  color: #333;
+  color: #ffffff;
 }
 
 /* ===== INPUT FIELDS ===== */
-.product-form input,
-.product-form select {
+.product-form-container input[type="text"],
+.product-form-container input[type="number"],
+.product-form-container input[type="file"],
+.product-form-container select {
   width: 100%;
-  padding: 0.85rem;
+  padding: 0.5rem;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
   border-radius: 8px;
   border: 1px solid #80cbc4;
   background-color: #e0f2f1;
-  font-size: 1rem;
   color: #004d40;
   transition: all 0.3s ease;
 }
 
-.product-form input:focus,
-.product-form select:focus {
+.product-form-container input:focus,
+.product-form-container select:focus {
   border-color: #00796b;
   background-color: #ffffff;
   box-shadow: 0 0 0 3px rgba(0, 150, 136, 0.2);
@@ -111,21 +118,21 @@
 }
 
 /* ===== SUBMIT BUTTON ===== */
-.product-form button {
+.product-form-container button {
   width: 100%;
-  padding: 0.95rem;
   background: linear-gradient(to right, #00796b, #004d40);
   color: white;
-  font-size: 1.1rem;
   font-weight: 600;
   border: none;
   border-radius: 10px;
-  margin-top: 1.5rem;
+  margin-top: 1rem;
   cursor: pointer;
+  padding: 0.6rem;
+  font-size: 0.9rem;
   transition: background 0.3s ease, transform 0.2s ease;
 }
 
-.product-form button:hover {
+.product-form-container button:hover {
   background: linear-gradient(to right, #004d40, #00796b);
   transform: translateY(-2px);
 }
@@ -137,87 +144,26 @@
   border-left: 5px solid #d84315;
   padding: 0.75rem 1rem;
   margin-bottom: 1rem;
-  font-size: 1rem;
+  font-size: 0.95rem;
   border-radius: 6px;
   text-align: center;
 }
 
-/* ===== RESPONSIVENESS ===== */
+/* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 600px) {
   .modal {
-    padding: 1.8rem 1.5rem;
+    padding: 1.5rem 1.2rem;
+    font-size: 0.85rem;
   }
 
-  .product-form h2 {
-    font-size: 1.7rem;
+  .product-form-container h2 {
+    font-size: 1.2rem;
   }
 
-  .product-form label {
-    font-size: 0.95rem;
+  .product-form-container label,
+  .product-form-container input,
+  .product-form-container select,
+  .product-form-container button {
+    font-size: 0.85rem;
   }
-
-  .product-form input,
-  .product-form select {
-    font-size: 0.95rem;
-    padding: 0.75rem;
-  }
-
-  .product-form button {
-    font-size: 1rem;
-    padding: 0.85rem;
-  }
-}
-.modal-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-
-.modal {
-  background: white;
-  padding: 2rem;
-  border-radius: 1rem;
-  width: 90%;
-  max-width: 500px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.3);
-  position: relative;
-}
-
-.close-button {
-  position: absolute;
-  right: 1rem;
-  top: 1rem;
-  font-size: 1.5rem;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-.error {
-  color: red;
-  margin-bottom: 1rem;
-}
-
-.product-form-container {
-  display: flex;
-  flex-direction: column;
-}
-
-.product-form-container label {
-  margin: 0.5rem 0;
-}
-
-.product-form-container input[type="text"],
-.product-form-container input[type="number"],
-.product-form-container input[type="file"] {
-  width: 100%;
-  padding: 0.5rem;
-  margin-top: 0.25rem;
 }
