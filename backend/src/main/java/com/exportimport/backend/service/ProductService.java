@@ -72,7 +72,7 @@ public class ProductService {
         try{
             Optional<Product> existingProduct = productRepo.findById(id);
             if(existingProduct.isEmpty()){
-                return new Response<>(400,"File not found",null);
+                return new Response<>(400,"Product not found",null);
             }
             Product product = existingProduct.get();
             product.setName(request.getName());

@@ -35,20 +35,6 @@ public class ProductController {
         return productService.createProduct(request);
     }
 
-    @GetMapping("/profile-pic/{filename}")
-    public ResponseEntity<Resource> getProfilePic(@PathVariable String filename) throws IOException {
-        Path filePath = Paths.get("uploads/profile_pics", filename);
-        Resource resource = (Resource) new UrlResource(filePath.toUri());
-
-//        if (!resource.exists()) {
-//            return ResponseEntity.notFound().build();
-//        }
-
-        return ResponseEntity.ok()
-                .contentType(MediaType.IMAGE_JPEG)
-                .body(resource);
-    }
-
     @PostMapping(
             value = "/{productId}/image",
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE
@@ -63,7 +49,7 @@ public class ProductController {
         return productService.getAllProducts();
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public Response<?> update(@PathVariable Long id, @RequestBody ProductRequest request) {
         return productService.updateProduct(id, request);
     }
