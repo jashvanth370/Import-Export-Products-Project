@@ -64,10 +64,10 @@ const PendingOrdersPage = () => {
                 <td>{order.shippingAddress}</td>
                 <td>
                   <button className="btn accept" onClick={() => handleAction(order.id, 'accept')}>
-                    ✅ Accept
+                    Accept
                   </button>
                   <button className="btn reject" onClick={() => handleAction(order.id, 'reject')}>
-                    ❌ Reject
+                    Reject
                   </button>
                 </td>
               </tr>

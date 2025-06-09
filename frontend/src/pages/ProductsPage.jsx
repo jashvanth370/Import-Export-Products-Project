@@ -40,6 +40,10 @@ const ProductsPage = () => {
       // navigate('/products');
       return;
     }
+    if(user.role=='EXPORTER'){
+      alert("You are exporter, YOU CANT ORDER ")
+      return;
+    }
     setSelectedProduct(product);
     setQuantity(1);
     setDays(1);
