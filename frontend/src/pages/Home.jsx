@@ -1,8 +1,15 @@
 import React from 'react';
 import '../styles/home.css';
+import { useNavigate } from 'react-router-dom';
+import ProductsPage from './ProductsPage';
 
 function Home() {
+  const navigate = useNavigate();
+  
+
   return (
+    <div>
+
     <div className="home-container">
       <section className="home-content">
         {/* Hero Image */}
@@ -36,6 +43,10 @@ function Home() {
           </div>
         </div>
       </section>
+    </div>
+    <div>
+      <ProductsPage />
+    </div>
     </div>
   );
 }

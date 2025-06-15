@@ -25,6 +25,7 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
+    alert("Are you sure to logout");
     logout();
     navigate('/');
   };
@@ -57,27 +58,27 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-      <div className="navbar-logo">🌐 TradeBridge</div>
+      <a href="/"><div className="navbar-logo">🌐 TradeBridge</div></a>
+      
       <div className="hamburger" onClick={toggleMenu}>
         {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
       </div>
       <ul className={`navbar-links ${isMobileMenuOpen ? 'active' : ''}`}>
-        <li><NavLink to="/" exact="true" onClick={closeMenu}><FaHome /> Home</NavLink></li>
+        <li><NavLink to="/" exact="true" onClick={closeMenu}></NavLink></li>
         {!user && <li><NavLink to="/login" onClick={closeMenu}><FaPersonHiking /> Login</NavLink></li>}
 
         {!user && (
           <>
             <li><NavLink to="/users" onClick={closeMenu}><FaPersonBooth /> Register</NavLink></li>
-            <li><NavLink to="/products" onClick={closeMenu}><FaBoxOpen /> Products</NavLink></li>
           </>
         )}
 
         {user?.role === 'IMPORTER' && (
           <>
             <li><NavLink to="/products" onClick={closeMenu}><FaBoxOpen /> Products</NavLink></li>
-            <li><button onClick={() => { closeMenu(); handleLogout(); }} className="logout-button"><FaPerson /> Logout</button></li>
             <li><NavLink to="/my-orders" onClick={closeMenu}><FaBoxOpen /> My Orders</NavLink></li>
             <li><NavLink to="/user-profile:id" ><FaUserCircle /> profile </NavLink> </li>
+            <li><button onClick={() => { closeMenu(); handleLogout(); }} className="logout-button"><FaPerson /> Logout</button></li>
           </>
         )}
 
