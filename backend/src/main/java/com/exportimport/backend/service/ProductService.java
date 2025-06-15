@@ -7,7 +7,7 @@ import com.exportimport.backend.entity.Product;
 import com.exportimport.backend.entity.User;
 import com.exportimport.backend.repository.ProductRepository;
 import com.exportimport.backend.repository.UserRepository;
-import lombok.Builder;
+import org.springframework.util.StreamUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,18 +15,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
+
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
+import org.springframework.core.io.Resource;
+
 
 @Service
 @RequiredArgsConstructor
@@ -160,6 +156,29 @@ public class ProductService {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Upload failed: " + e.getMessage());
         }
     }
+    public byte[] getProductImage(Long productId) throws IOException {
+        Product product = productRepo.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+
+        String imagePath = product.getImageUrl();
+        if (imagePath == null) {
+            throw new RuntimeException("No image associated with this product");
+        }
+
+        if (imagePath.startsWith("/")) {
+            imagePath = imagePath.substring(1);
+        }
+
+        Resource imageResource = (Resource) fileStorageService.loadImageAsResource(imagePath);
+        if (!imageResource.exists()) {
+            throw new RuntimeException("Image file not found");
+        }
+
+        return StreamUtils.copyToByteArray(imageResource.getInputStream());
+    }
+
+
+
 
 
 

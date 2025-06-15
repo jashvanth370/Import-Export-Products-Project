@@ -31,6 +31,7 @@ const ProductsExporter = () => {
         if (!res.ok) throw new Error('Failed to fetch products');
         const data = await res.json();
         setProducts(Array.isArray(data.data) ? data.data : []);
+        console.log(products.imageUrl);
       } catch (err) {
         setError(err.message);
       }
@@ -47,7 +48,7 @@ const ProductsExporter = () => {
 
       if (!response.ok) throw new Error('Failed to delete product');
       setProducts(prev => prev.filter(p => p.id !== productId));
-      alert('✅ Product deleted successfully');
+      alert('Are you sure delete this product');
     } catch (error) {
       console.error(error);
       alert('❌ Failed to delete product');
@@ -121,7 +122,7 @@ const ProductsExporter = () => {
           <div key={product.id} className="product-card">
             {product.imageUrl ? (
               <img
-                src={`http://localhost:8080/${product.imageUrl}`}
+                src={`http://localhost:8080/api/products/${product.id}/image`}
                 alt={product.name}
                 className="product-image"
                 style={{ width: '150px', height: '150px', objectFit: 'cover' }}
@@ -137,6 +138,7 @@ const ProductsExporter = () => {
             <p><strong>Origin:</strong> {product.originCountry}</p>
             <p><strong>Weight:</strong> {product.weight} kg</p>
             <p><strong>HS Code:</strong> {product.hsCode}</p>
+            
 
 
             <button onClick={() => handleDeleteProduct(product.id)}>

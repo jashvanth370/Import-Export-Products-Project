@@ -11,6 +11,8 @@ import com.exportimport.backend.service.ProductService;
 import jakarta.annotation.Resource;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,6 +43,20 @@ public class ProductController {
     )
     public ResponseEntity<?> uploadImage(@PathVariable Long productId, @RequestParam("image") MultipartFile imageFile) {
         return productService.uploadImage(productId,imageFile);
+    }
+
+    @GetMapping("/{productId}/image")
+    public ResponseEntity<byte[]> getProductImage(@PathVariable Long productId) {
+        try {
+            byte[] imageBytes = productService.getProductImage(productId);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.IMAGE_JPEG);  // or dynamically detect if needed
+            return new ResponseEntity<>(imageBytes, headers, HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
 
