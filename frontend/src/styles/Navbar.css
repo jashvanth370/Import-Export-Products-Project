@@ -9,6 +9,9 @@
   z-index: 1000;
 }
 
+.navbar a{
+  text-decoration: none;
+}
 .navbar-logo {
   font-size: 1.8rem;
   font-weight: bold;
