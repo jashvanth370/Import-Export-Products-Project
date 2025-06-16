@@ -1,6 +1,7 @@
 package com.exportimport.backend.entity;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.lang.Contract;
 
 @Entity
 @Data
@@ -21,8 +22,9 @@ public class Product {
     private Double weight;
     private Double value;
     private String status;
-    private String quantity;
+    private Long quantity;
     private String imageUrl;
+
 
 
     @ManyToOne

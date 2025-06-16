@@ -11,7 +11,7 @@ public class ProductRequest {
     private String originCountry;
     private Double weight;
     private Double value;
-    private String quantity;
+    private Long quantity;
     private Long exporterId;
 
 }

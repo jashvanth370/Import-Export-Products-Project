@@ -16,7 +16,7 @@ public class ProductResponse {
     private String originCountry;
     private Double weight;
     private Double value;
-    private String quantity;
+    private Long quantity;
     private String exporterName;
     private Long exporterId;
     private int statusCode;

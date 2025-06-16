@@ -1,8 +1,10 @@
 package com.exportimport.backend.service;
 import com.exportimport.backend.DTO.*;
 import com.exportimport.backend.entity.Order;
+import com.exportimport.backend.entity.Product;
 import com.exportimport.backend.entity.ShipmentStatus;
 import com.exportimport.backend.repository.OrderRepository;
+import com.exportimport.backend.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
@@ -20,9 +22,22 @@ public class OrderService {
     @Autowired
     private  OrderRepository orderRepo;
 
+    @Autowired
+    private ProductRepository productRepo;
+
 
     public Response<?> createOrder(OrderRequest request) {
-        try{
+        try {
+            // Fetch the product
+            Optional<Product> productOpt = productRepo.findById(request.getProductId());
+            if (productOpt.isEmpty()) {
+                return new Response<>(404, "Product not found", null);
+            }
+
+            Product product = productOpt.get();
+            if (product.getQuantity() < request.getQuantity()) {
+                return new Response<>(400, "Insufficient product quantity available", product);
+            }
             Order order = Order.builder()
                     .importerId(request.getImporterId())
                     .productId(request.getProductId())
@@ -32,13 +47,17 @@ public class OrderService {
                     .quantity(request.getQuantity())
                     .exporterId(request.getExporterId())
                     .build();
+
             orderRepo.save(order);
-            return new Response<>(200,"Order Create successfully",null);
-        }
-        catch(Exception e){
-            return new Response<>(500,"Internal error",null);
+            product.setQuantity(product.getQuantity() - request.getQuantity());
+            productRepo.save(product);
+
+            return new Response<>(200, "Order created successfully", order);
+        } catch (Exception e) {
+            return new Response<>(500, "Internal error", null);
         }
     }
+
 
     public Response<?> getOrdersByUser(Long importerId) {
         try{
