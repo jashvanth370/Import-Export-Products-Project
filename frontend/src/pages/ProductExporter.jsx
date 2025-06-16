@@ -51,7 +51,7 @@ const ProductsExporter = () => {
       alert('Are you sure delete this product');
     } catch (error) {
       console.error(error);
-      alert('❌ Failed to delete product');
+      alert('Failed to delete product');
     }
   };
 

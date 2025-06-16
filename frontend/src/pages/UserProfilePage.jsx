@@ -82,6 +82,13 @@ const UserProfilePage = () => {
               onChange={(e) => setProfile({ ...profile, address: e.target.value })}
             />
 
+            <input
+              value={profile.email}
+              onChange={(e)=> setProfile({...profile,email: e.target.value})}
+            />
+
+            
+
             <div className="modal-actions">
               <button onClick={handleUpdate}>Save Changes</button>
               <button onClick={() => setIsModalOpen(false)}>Cancel</button>
