@@ -10,6 +10,27 @@ const MyOrdersPage = () => {
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
+    const handleDelete = async(orderId) => {
+        try{
+            const response = await fetch(`http://localhost:8080/api/orders/delete/${orderId}`,{
+                method: 'DELETE',
+            });
+            
+            if(!response.ok){
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Failed to delete order');
+            }
+
+            const data = await response.json();
+            console.log('Order deleted successfully:', data);
+            alert("Are you sure delete");
+            window.location.reload();
+        }
+        catch(err){
+            console.error("Failed to delete",err.message)
+        }
+    };
+
     useEffect(() => {
         if (!user) return;
 
@@ -66,6 +87,9 @@ const MyOrdersPage = () => {
                                 <td>
                                     <button onClick={() => navigate(`/track-shipment/${order.id}`)}>
                                         Track Shipment
+                                    </button>
+                                    <button onClick={()=> handleDelete(order.id)}>
+                                        Cancel
                                     </button>
                                 </td>
                             </tr>

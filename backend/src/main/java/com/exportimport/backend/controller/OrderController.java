@@ -78,15 +78,17 @@ public class OrderController {
         return ResponseEntity.ok(Map.of("data", pendingOrders));
     }
 
-
-
-
     @GetMapping("/{id}/shipment")
     public ResponseEntity<ApiResponse<ShipmentResponse>> getShipment(
             @PathVariable("id") Long orderId
     ) {
         ShipmentResponse shipment = orderService.getShipmentDetails(orderId);
         return ResponseEntity.ok(ApiResponse.success(shipment));
+    }
+
+    @DeleteMapping("/delete/{orderId}")
+    public Response<?> deleteOrder(@PathVariable Long orderId){
+        return orderService.deleteOrder(orderId);
     }
 
 

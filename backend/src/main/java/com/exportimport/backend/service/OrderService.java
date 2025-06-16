@@ -175,4 +175,19 @@ public class OrderService {
                 .build();
     }
 
+
+    public Response<?> deleteOrder(Long orderId){
+        Optional<Order> order = orderRepo.findById(orderId);
+        try{
+            if(order.isEmpty()){
+                return new Response<>(400,"Order is not found",null);
+            }
+            orderRepo.deleteById(orderId);
+            return new Response<>(200,"Order delete successfully",null);
+        }
+        catch(Exception e){
+            return new Response<>(500,"Internal Server Error",null);
+        }
+    }
+
 }
