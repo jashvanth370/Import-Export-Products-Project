@@ -15,6 +15,7 @@ const MyOrdersPage = () => {
             const response = await fetch(`http://localhost:8080/api/orders/delete/${orderId}`,{
                 method: 'DELETE',
             });
+            alert("Are you sure delete");
             
             if(!response.ok){
                 const errorData = await response.json();

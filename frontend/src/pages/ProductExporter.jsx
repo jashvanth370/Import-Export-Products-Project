@@ -45,7 +45,7 @@ const ProductsExporter = () => {
       const response = await fetch(`http://localhost:8080/api/products/${productId}`, {
         method: 'DELETE',
       });
-
+      alert('Are you sure delete this product');
       if (!response.ok) throw new Error('Failed to delete product');
       setProducts(prev => prev.filter(p => p.id !== productId));
       alert('Are you sure delete this product');

@@ -68,16 +68,20 @@ const ProductsPage = () => {
       });
       
 
-      if (!response.ok) throw new Error('Failed to place order');
+      // if (!response.ok) throw new Error(response.message);
+
+      if (!response.ok){
+        alert(response.message)
+      }
 
       const result = await response.json();
-      alert(`✅ Order placed successfully! Order ID: ${result.id}`);
+      alert(`Order placed successfully! Order ID: ${result.data.id}`);
       console.log('Order result:', result);
       console.log('Order data:', orderData);
       setSelectedProduct(null);
     } catch (error) {
       console.error('Error placing order:', error);
-      alert('❌ Failed to place order. Please try again.');
+      alert('Failed to place order. Please try again.');
     }
   };
 
