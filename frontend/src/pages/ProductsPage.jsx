@@ -41,7 +41,7 @@ const ProductsPage = () => {
       return;
     }
     if(user.role=='EXPORTER'){
-      alert("You are exporter, YOU CANT ORDER ")
+      alert("You are exporter, YOU CAN'T ORDER ")
       return;
     }
     setSelectedProduct(product);
